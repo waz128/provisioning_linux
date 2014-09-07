@@ -36,5 +36,11 @@ bash "wordpress-4.0-en_CA.tar.gz" do
 	EOH
 end
 
+service "httpd" do
+	supports :status => true, :restart => true, :reload => true
+	action [ :reload ]
+end
+
+
 #rm -rf /var/www/html/wordpress
 #rm -rf /var/www/html/wordpress-4.0-en_CA.tar.gz
