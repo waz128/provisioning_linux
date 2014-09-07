@@ -5,7 +5,11 @@
 # Copyright 2014, YOUR_COMPANY_NAME
 #
 # All rights reserved - Do Not Redistribute
-package "php55", "php55-mysqlnd.x86_64" do
+package "php55" do
+	action :install
+end
+
+package "php55-mysqlnd.x86_64" do
 	action :install
 end
 
