@@ -28,6 +28,7 @@ bash "wordpress-4.0-en_CA.tar.gz" do
 	code <<-EOH
 	tar -zxvf wordpress-4.0-en_CA.tar.gz
 	cp wordpress/* /var/www/html
+	rm -rf /var/www/html/wordpress/*
 	EOH
 end
 
