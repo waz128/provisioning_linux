@@ -14,13 +14,13 @@ service "httpd" do
 	action [ :enable, :start ]
 end
 
-remote_file "/var/www/html" do
+remote_file "wordpress-4.0-en_CA.tar.gz" do
   mode "0644"
   source "http://en-ca.wordpress.org/wordpress-4.0-en_CA.tar.gz"
   checksum "sha256checksum"
 end
 
-bash "install something" do
+bash "wordpress-4.0-en_CA.tar.gz" do
 	user "root"
 	cwd "/var/www/html"
 	code <<-EOH
