@@ -14,4 +14,17 @@ service "httpd" do
 	action [ :enable, :start ]
 end
 
+remote_file "/var/www/html" do
+  mode "0644"
+  source "http://en-ca.wordpress.org/wordpress-4.0-en_CA.tar.gz"
+  checksum "sha256checksum"
+end
+
+bash "install something" do
+	user "root"
+	cwd "/var/www/html"
+	code <<-EOH
+	tar -zxvf tar -zxvf data.tar.gz
+	EOH
+end
 
