@@ -15,7 +15,7 @@ service "httpd" do
 end
 
 #package "mysql" do
-	action :install
+#	action :install
 #end
 
 remote_file "/var/www/html/wordpress-4.0-en_CA.tar.gz" do
