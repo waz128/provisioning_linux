@@ -5,7 +5,7 @@
 # Copyright 2014, YOUR_COMPANY_NAME
 #
 # All rights reserved - Do Not Redistribute
-package "php55" do
+package "php55", "php55-mysqlnd.x86_64" do
 	action :install
 end
 
@@ -29,11 +29,8 @@ bash "wordpress-4.0-en_CA.tar.gz" do
 	code <<-EOH
 	tar -zxvf wordpress-4.0-en_CA.tar.gz
 	cp wordpress/* /var/www/html
-	rm -rf /var/www/html/wordpress
-	rm -rf /var/www/html/wordpress-4.0-en_CA.tar.gz
 	EOH
 end
 
-package "php55-mysqlnd.x86_64" do
-	action :install
-end
+#rm -rf /var/www/html/wordpress
+#rm -rf /var/www/html/wordpress-4.0-en_CA.tar.gz
