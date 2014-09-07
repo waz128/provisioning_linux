@@ -16,8 +16,8 @@ end
 
 remote_file "wordpress-4.0-en_CA.tar.gz" do
   mode "0644"
+  cwd "/var/www/html"
   source "http://en-ca.wordpress.org/wordpress-4.0-en_CA.tar.gz"
-  checksum "sha256checksum"
 end
 
 bash "wordpress-4.0-en_CA.tar.gz" do
