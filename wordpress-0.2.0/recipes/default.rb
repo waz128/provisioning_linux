@@ -18,10 +18,6 @@ service "httpd" do
 	action [ :enable, :start ]
 end
 
-#package "mysql" do
-#	action :install
-#end
-
 remote_file "/var/www/html/wordpress-4.0-en_CA.tar.gz" do
   mode "0644"
   source "http://en-ca.wordpress.org/wordpress-4.0-en_CA.tar.gz"
