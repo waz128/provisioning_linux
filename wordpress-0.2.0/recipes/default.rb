@@ -5,7 +5,7 @@
 # Copyright 2014, YOUR_COMPANY_NAME
 #
 # All rights reserved - Do Not Redistribute
-package "php55"do
+package "php55" do
 	action :install
 end
 
