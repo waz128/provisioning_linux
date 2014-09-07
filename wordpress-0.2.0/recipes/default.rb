@@ -9,7 +9,7 @@ package "php55" do
 	action :install
 end
 
-package "php55-mysqlnd.x86_64" do
+package "php55-mysqlnd" do
 	action :install
 end
 
