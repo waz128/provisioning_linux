@@ -5,6 +5,8 @@
 # Copyright 2014, YOUR_COMPANY_NAME
 #
 # All rights reserved - Do Not Redistribute
+include_recipe "mysql"
+
 package "php55" do
 	action :install
 end
