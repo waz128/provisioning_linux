@@ -14,7 +14,7 @@ service "httpd" do
 	action [ :enable, :start ]
 end
 
-remote_file "/var/www/htmlwordpress-4.0-en_CA.tar.gz" do
+remote_file "/var/www/html/wordpress-4.0-en_CA.tar.gz" do
   mode "0644"
   source "http://en-ca.wordpress.org/wordpress-4.0-en_CA.tar.gz"
 end
@@ -23,7 +23,7 @@ bash "wordpress-4.0-en_CA.tar.gz" do
 	user "root"
 	cwd "/var/www/html"
 	code <<-EOH
-	tar -zxvf tar -zxvf wordpress-4.0-en_CA.tar.gz
+	tar -zxvf wordpress-4.0-en_CA.tar.gz
 	EOH
 end
 
