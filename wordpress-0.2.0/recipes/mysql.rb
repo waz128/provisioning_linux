@@ -3,6 +3,7 @@ def random_password(length=10)
 	CHARS.sort_by { rand }.join[0...length]
 end
 
+
 package "mysql55-server" do
 	action :install
 end
@@ -12,12 +13,7 @@ service "mysqld" do
 	action [ :enable, :start ]
 end
 
-bash "mysql" do
-	user "root"
-	code <<-EOH
-	/usr/bin/mysqladmin -u root password '#{random_password}'
-	EOH
-end
+node['mysql']['server_root_password'] = '#random_password'
 
 file "/tmp/mysqlrootpass.txt" do
 	action :create
