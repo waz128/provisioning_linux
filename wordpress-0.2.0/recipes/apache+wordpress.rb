@@ -1,4 +1,4 @@
-if platform_family?("Amazon")
+if platform_family?("amazon")
   
 		package "php55" do
 			action :install
@@ -33,4 +33,7 @@ if platform_family?("Amazon")
 			supports :status => true, :restart => true, :reload => true
 			action [ :reload ]
 		end
+
+else
+	print "Not Amazon"
 end
