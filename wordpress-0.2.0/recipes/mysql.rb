@@ -22,7 +22,7 @@ end
 execute "name" do
 	command "/usr/bin/mysqladmin -u root password "#{random_password}"
 	creates "/tmp/mysqlrootpass.txt"
-	content '#{random_password}'
+	content "#{random_password}"
 	action :run
 end
 
