@@ -1,4 +1,4 @@
-if platform_family?("amazon")
+if platform_family?("Amazon Linux AMI")
   
 		package "php55" do
 			action :install
