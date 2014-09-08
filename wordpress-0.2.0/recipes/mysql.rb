@@ -12,10 +12,11 @@ service "mysqld" do
 	action [ :enable, :start ]
 end
 
-execute "mysqladmin" do
-	command "/usr/bin/mysqladmin -u root password #{random_password}"
-	creates "/tmp/mysqlrootpass.txt"
-	action :run
+bash "mysql" do
+	user "root"
+	code <<-EOH
+	/usr/bin/mysqladmin -u root password '#{random_password}'
+	EOH
 end
 
 file "/tmp/mysqlrootpass.txt" do
