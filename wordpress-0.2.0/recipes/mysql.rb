@@ -15,7 +15,7 @@ end
 bash "mysql55-server" do
 	user "root"
 	code <<-EOH
-	/usr/bin/mysqladmin -u root password '#{random_password}'
+	/usr/bin/mysqladmin -u root password #{random_password}
 	EOH
 end
 
