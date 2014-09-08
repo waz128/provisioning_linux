@@ -7,6 +7,7 @@
 # All rights reserved - Do Not Redistribute
 include_recipe "wordpress-0.2.0::mysql"
 
+
 package "php55" do
 	action :install
 end
