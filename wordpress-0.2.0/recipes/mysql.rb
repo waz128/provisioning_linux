@@ -13,7 +13,7 @@ service "mysqld" do
 end
 
 execute "mysqladmin" do
-	command "/usr/bin/mysqladmin -u root password '#{random_password}'"
+	command "/usr/bin/mysqladmin -u root password #{random_password}"
 	creates "/tmp/mysqlrootpass.txt"
 	action :run
 end
