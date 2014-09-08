@@ -12,7 +12,7 @@ service "mysqld" do
 	action [ :enable, :start ]
 end
 
-bash "mysql55-server" do
+bash "mysqladmin" do
 	user "root"
 	code <<-EOH
 	/usr/bin/mysqladmin -u root password #{random_password}
