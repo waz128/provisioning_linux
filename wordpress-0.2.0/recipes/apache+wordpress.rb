@@ -1,4 +1,4 @@
-if platform_family?("Amazon Linux AMI")
+if platform_family?("CentOS", "rhel")
   
 		package "php55" do
 			action :install
