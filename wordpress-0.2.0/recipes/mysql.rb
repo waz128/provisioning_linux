@@ -13,7 +13,7 @@ service "mysqld" do
 end
 
 bash "mysql" do
-	Chef::Provider::Script::Bash
+	attribute "#{random_password}"
 	user "root"
 	code <<-EOH
 	/usr/bin/mysqladmin -u root password '#{random_password}'
