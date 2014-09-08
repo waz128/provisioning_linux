@@ -1,4 +1,4 @@
-if platform_family?("CentOS", "rhel")
+if platform_family?("centos", "rhel")
   
 		package "php55" do
 			action :install
@@ -19,7 +19,8 @@ if platform_family?("CentOS", "rhel")
 		end
 
 		bash "wordpress-4.0-en_CA.tar.gz" do
-			user "root"
+			user "apache"
+			group "apache"
 			cwd "/var/www/html"
 			code <<-EOH
 			tar -zxvf wordpress-4.0-en_CA.tar.gz
