@@ -3,25 +3,6 @@ def random_password(length=10)
 	CHARS.sort_by { rand }.join[0...length]
 end
 
-puts "#{random_password}"
-
-package "mysql55-server" do
-	action :install
-end
-
-service "mysqld" do
-	supports :status => true, :restart => true, :reload => true
-	action [ :enable, :start ]
-end
-
-ruby "mysqld" do
-	user "root"
-	code <<-EOH
-	/usr/bin/mysqladmin -u root password #{random_password}	
-	EOH
-end
-
-
 file "/tmp/mysqlrootpass.txt" do
 	action :create
 	owner "root"
@@ -30,4 +11,15 @@ file "/tmp/mysqlrootpass.txt" do
 	content "#{random_password}"
 end
 
-puts '#{random_password}'
+node.set['mysql']['server_root_password'] = '#{random_password}'
+node.set['mysql']['port'] = '3308'
+node.set['mysql']['data_dir'] = '/data'
+
+include_recipe 'mysql::server'
+
+template '/etc/mysql/conf.d/mysite.cnf' do
+  owner 'mysql'
+  owner 'mysql'      
+  source 'mysite.cnf.erb'
+  notifies :restart, 'mysql_service[default]'
+end
