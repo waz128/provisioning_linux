@@ -3,4 +3,4 @@ def random_password(length=10)
 	CHARS.sort_by { rand }.join[0...length]
 end
 
-mysql['mysql']['server_root_password'] = '#{random_password}'
+default['mysqld']['server_root_password'] = '#{random_password}'

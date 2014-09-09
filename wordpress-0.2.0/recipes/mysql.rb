@@ -1,4 +1,4 @@
-include_attribute "wordpress-0-2-0::random_password"
+include_attribute "random_password"
 
 package "mysql55-server" do
 	action :install
@@ -9,7 +9,7 @@ service "mysqld" do
 	action [ :enable, :start ]
 end
 
-mysql['mysql']['server_root_password'] = '#{random_password}'
+default['mysqld']['server_root_password'] = '#{random_password}'
 
 file "/tmp/mysqlrootpass.txt" do
 	action :create
