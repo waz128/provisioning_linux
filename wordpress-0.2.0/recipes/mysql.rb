@@ -1,7 +1,3 @@
-
-
-puts "#{random_password}"
-
 package "mysql55-server" do
 	action :install
 end
