@@ -9,7 +9,7 @@ service "mysqld" do
 	action [ :enable, :start ]
 end
 
-default['mysql']['server_root_password'] = '#{random_password}'
+mysql['mysql']['server_root_password'] = '#{random_password}'
 
 file "/tmp/mysqlrootpass.txt" do
 	action :create
