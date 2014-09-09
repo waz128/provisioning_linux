@@ -1,4 +1,4 @@
-include_attribute "random_password"
+include_attribute "wordpress-0-2-0::random_password"
 
 package "mysql55-server" do
 	action :install
