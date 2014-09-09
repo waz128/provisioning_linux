@@ -29,11 +29,6 @@ if platform_family?("centos", "rhel")
 			EOH
 		end
 
-		service "httpd" do
-			supports :status => true, :restart => true, :reload => true
-			action [ :reload ]
-		end
-
 else
 	print "Not Amazon"
 end
