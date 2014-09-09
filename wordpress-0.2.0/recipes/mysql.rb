@@ -1,3 +1,15 @@
+CHARS = ('0'..'9').to_a + ('A'..'Z').to_a + ('a'..'z').to_a
+def random_password(length=10)
+	CHARS.sort_by { rand }.join[0...length]
+end
+
+ruby_block "reload client config" do
+	block do
+		Chef::Resource::Ruby("#{random_password}")
+	end
+end
+
+
 package "mysql55-server" do
 	action :install
 end
@@ -10,10 +22,6 @@ end
 ruby "mysqld" do
 	user "root"
 	code <<-EOH
-	CHARS = ('0'..'9').to_a + ('A'..'Z').to_a + ('a'..'z').to_a
-	def random_password(length=10)
-	CHARS.sort_by { rand }.join[0...length]
-	end
 	/usr/bin/mysqladmin -u root password '#{random_password}'
 	vim "/tmp/#{random_password}"	
 	EOH
