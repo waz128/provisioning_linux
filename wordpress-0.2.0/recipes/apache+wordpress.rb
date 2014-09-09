@@ -19,8 +19,7 @@ if platform_family?("centos", "rhel")
 		end
 
 		bash "wordpress-4.0-en_CA.tar.gz" do
-			user "apache"
-			group "apache"
+			user "root"
 			cwd "/var/www/html"
 			code <<-EOH
 			tar -zxvf wordpress-4.0-en_CA.tar.gz
