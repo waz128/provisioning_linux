@@ -17,7 +17,7 @@ directory "/mnt/sophos-share" do
 end
 
  Mount share
- depends on: https://github.com/realityforge/chef-smbfs.git
+ depends on: https:/github.com/realityforge/chef-smbfs
  include_recipe 'smbfs::attribute_driven'
 
 install sophos
