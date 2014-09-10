@@ -17,7 +17,7 @@ directory "/mnt/sophos-share" do
 end
 
  Mount share
- depends on: https://github.com/realityforge/chef-smbfs
+ depends on: https://github.com/realityforge/chef-smbfs.git
  include_recipe 'smbfs::attribute_driven'
 
 install sophos
@@ -27,3 +27,5 @@ bash 'install-sophos' do
     EOH
   not_if { Dir.exists?('/opt/sophos-av') }
 end
+
+depends on: HTTP
