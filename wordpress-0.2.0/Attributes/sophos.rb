@@ -1,6 +1,3 @@
-
-
-
 default['smbfs']['mounts']['/mnt/sophos-share'] =
   {
     'cifs_path' => '//apse2-0001sec.aws.server-noc.com/APSE2SophosUpdates',
