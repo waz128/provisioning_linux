@@ -6,7 +6,7 @@
 # Awaiting implementation of http://www.sophos.com/en-us/support/knowledgebase/38238.aspx
 #
 ####
-include_recipe "smbfs"
+#include_recipe "smbfs"
 
 #Create share directory
 directory "/mnt/sophos-share" do
