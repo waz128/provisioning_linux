@@ -16,8 +16,7 @@ directory "/mnt/sophos-share" do
   action :create
 end
 
- Mount share
- depends on: https:github.com/realityforge/chef-smbfs
+ #Mount share depends on: https://github.com/realityforge/chef-smbfs
  include_recipe 'smbfs::attribute_driven'
 
 install sophos
