@@ -13,5 +13,6 @@ end
 service "mysqld" do
   supports :status => true, :restart => true, :reload => true
   action [ :enable, :start ]
+  server_root_password = 'server_root_password'
 end
 
