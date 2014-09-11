@@ -1,5 +1,5 @@
-default['desktop']['enable'] = true
-default['network']['forwarding'] = true
+node.override['desktop']['enable'] = true
+node.override['network']['forwarding'] = true
 default['network']['ipv6']['enable'] = true
 default['network']['arp']['restricted'] = true
 #default['env']['umask'] = "027"
