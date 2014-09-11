@@ -1,11 +1,11 @@
 include_recipe "os-hardening"
 
-"desktop" : {
-    "enable" : false
+"desktop" {
+    "enable" :false
 },
 
-"security" : {
-  "kernel" : {
-    "enable_module_loading" : true
+"security" {
+  "kernel" {
+    "enable_module_loading" :true
   }
 },
