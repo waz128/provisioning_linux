@@ -1,7 +1,11 @@
+#This cookbook depends on https://community.opscode.com/cookbooks/os-hardening#readme
+#Look at the allowable attributes you can configure and set here. 
+#At the time of writing, the cookbook used is version 1.1.2
+
 node.override['desktop']['enable'] = false
 node.override['network']['forwarding'] = false
 node.override['network']['ipv6']['enable'] = false
-node.override['network']['arp']['restricted'] = false
+node.override['network']['arp']['restricted'] = true
 node.override['env']['umask'] = "027"
 node.override['env']['root_path'] = "/"
 node.override['auth']['pw_max_age'] = 90
@@ -18,4 +22,3 @@ node.override['security']['suid_sgid']['enforce'] = false
 node.override['security']['packages']['clean'] = true
 
 include_recipe "os-hardening"
-
