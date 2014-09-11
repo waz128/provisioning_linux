@@ -3,6 +3,11 @@ def random_password(length=10)
   CHARS.sort_by { rand }.join[0...length]
 end
 
+package "mysql-server" do
+  action :install
+  version " 5.5.38-1.0"
+end
+
 mysql_service node['mysql']['service_name'] do
   version node['mysql']['version']
   port node['mysql']['port']
