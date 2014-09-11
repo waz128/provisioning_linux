@@ -16,3 +16,12 @@ service "mysqld" do
   server_root_password = 'server_root_password'
 end
 
+file "pasword" do
+  action :create
+  owner "root"
+  group "root"
+  mode "0644"
+  content "server_root_password"
+end
+
+
