@@ -14,7 +14,7 @@
 ['security']['kernel']['enable_module_loading'] = true
 ['security']['kernel']['enable_sysrq'] = false
 ['security']['kernel']['enable_core_dump'] = false
-['security']['suid_sgid']['enforce'] = true
+['security']['suid_sgid']['enforce'] = false
 ['security']['suid_sgid']['remove_from_unkown'] = false
 ['security']['suid_sgid']['dry_run_on_unkown'] = false
 ['security']['packages']['clean'] = true
