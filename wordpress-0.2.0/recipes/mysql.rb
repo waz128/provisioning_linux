@@ -13,4 +13,4 @@ service "mysqld" do
 end
 
 node.override['mysqld']['server_root_password'] = '#{random_password}'
-put '#{random_password}'
+print 'random_password'
