@@ -1,2 +1,9 @@
 include_recipe "os-hardening"
-include_attribute "os-harden"
+
+{
+"security" : {
+  "kernel" : {
+    "enable_module_loading" : true
+  }
+}
+},
