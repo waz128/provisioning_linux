@@ -12,5 +12,5 @@ service "mysqld" do
   action [ :enable, :start ]
 end
 
-"mysqld" => {"server_root_password" => '#{random_password}'
-print '#{random_password}'
+node.override['mysqld']['server_root_password'] = '#{random_password}'
+put '#{random_password}'
