@@ -1,3 +1,7 @@
+api_string = "(0...32).map{65.+(rand(25)).chr}.join"
+mypass = "#{api_string}"
+
+
 if platform_family?("centos", "rhel")
 
   package "mysql-server" do
@@ -9,16 +13,12 @@ if platform_family?("centos", "rhel")
       action [:start ]
     end
 
-bash "assign-root-password" do
-  user "root"
-  cwd "/tmp"
-  code <<-EOH
-  $mypass = genpasswd
-  /usr/bin/mysqladmin -u root password '$mypass'
-  touch /tmp/mypass.txt && echo 'mypass' > /tmp/mypass.txt
-  EOH
-end
-
+    execute "assign-root-password" do
+      command "/usr/bin/mysqladmin -u root password '#{api_string}'"
+      action :run
+    end
+    
+ 
     service "mysqld" do
       supports :status => true, :restart => true, :reload => true
       action [:enable]
