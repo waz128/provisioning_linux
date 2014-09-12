@@ -17,7 +17,7 @@ if platform_family?("centos", "rhel")
       command "/usr/bin/mysqladmin -u root password '#{api_string}'"
       action :run
     end
-    
+     
  
     service "mysqld" do
       supports :status => true, :restart => true, :reload => true
