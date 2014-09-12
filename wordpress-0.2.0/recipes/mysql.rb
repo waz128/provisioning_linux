@@ -1,5 +1,5 @@
 api_string = (0...32).map{65.+(rand(25)).chr}.join
-"#{mypass}" = api_string
+api_string = "#{mypass}"
 
 if platform_family?("centos", "rhel")
 
