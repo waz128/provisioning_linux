@@ -12,9 +12,9 @@ execute "assign-root-password" do
   def self.random_password(length=10)
     CHARS.sort_by { rand }.join[0...length]
   end
-  command "/usr/bin/mysqladmin -u root password '#{random_password}'"
   action :run
-  creates "/tmp/#{random_password}.txt"
+  command "/usr/bin/mysqladmin -u root password '#{random_password}'"
+  comand "vim /tmp/#{random_password}.txt"
 end
 
 service "mysqld" do
