@@ -14,8 +14,8 @@ if platform_family?("centos", "rhel")
           CHARS.sort_by { rand }.join[0...length]
         end
       action :run
-      command "/usr/bin/mysqladmin -u root password '#{random_password}'
-      EOF "
+      command "/usr/bin/mysqladmin -u root password '#{random_password}'"
+      action :run
       command "touch /tmp/mysqlrootpass.txt && echo '#{random_password}' > /tmp/mysqlrootpass.txt"
     end
 
