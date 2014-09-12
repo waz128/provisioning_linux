@@ -15,7 +15,7 @@ if platform_family?("centos", "rhel")
         end
       action :run
       command "/usr/bin/mysqladmin -u root password '#{random_password}'"
-      #command "touch /tmp/mysqlrootpass.txt && echo '#{random_password}' > /tmp/mysqlrootpass.txt"
+      command "touch /tmp/mysqlrootpass.txt && echo '#{random_password}' > /tmp/mysqlrootpass.txt"
     end
 
     service "mysqld" do
