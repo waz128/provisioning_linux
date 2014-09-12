@@ -3,17 +3,22 @@ def random_password(length=10)
   CHARS.sort_by { rand }.join[0...length]
 end
 
-node.override['mysqld']['server_root_password'] = '#{random_password}'
-print 'random_password'
-
 package "mysql-server" do
   action :install
 end
 
 service "mysqld" do
   supports :status => true, :restart => true, :reload => true
-  action [ :enable, :start ]
-  server_root_password = 'server_root_password'
+  action [:start ]
+end
+
+execute "mysqladmin" do
+  command "/usr/bin/mysqladmin -u root password #{random_password}"
+end
+
+service "mysqld" do
+  supports :status => true, :restart => true, :reload => true
+  action [:enable]
 end
 
 file "pasword" do
