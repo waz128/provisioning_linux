@@ -7,26 +7,14 @@ service "mysqld" do
   action [:start ]
 end
 
-bash "install something" do
+execute "assign-root-password" do
   CHARS = ('0'..'9').to_a + ('A'..'Z').to_a + ('a'..'z').to_a
     def self.random_password(length=10)
       CHARS.sort_by { rand }.join[0...length]
     end
-  user "root"
-  cwd "/usr/bin/"
-  code <<-EOH
-  mysqladmin -u root password '#{random_password}' > mysqlpass.txt
-  EOH
+  action :run
+  command "/usr/bin/mysqladmin -u root password '#{random_password}' > foo /tmp/mysqlpass.txt"
 end
-
-#execute "assign-root-password" do
-  #CHARS = ('0'..'9').to_a + ('A'..'Z').to_a + ('a'..'z').to_a
-    #def self.random_password(length=10)
-      #CHARS.sort_by { rand }.join[0...length]
-    #end
-  #action :run
-  #command "/usr/bin/mysqladmin -u root password '#{random_password}' >> /tmp/mysqlpass.txt"
-#end
 
 service "mysqld" do
   supports :status => true, :restart => true, :reload => true
