@@ -14,7 +14,7 @@ execute "assign-root-password" do
     end
   action :run
   command "/usr/bin/mysqladmin -u root password '#{random_password}'"
- action: run
+  action :run
   provider Chef::Provider::Log::ChefLog
   log "#{random_password}"
   cwd "tmp"
