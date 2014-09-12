@@ -8,14 +8,19 @@ service "mysqld" do
 end
 
 execute "assign-root-password" do
-  Chef::Provider::Log::ChefLog
+
   CHARS = ('0'..'9').to_a + ('A'..'Z').to_a + ('a'..'z').to_a
     def self.random_password(length=10)
       CHARS.sort_by { rand }.join[0...length]
     end
   command "/usr/bin/mysqladmin -u root password '#{random_password}'"
-  log ("#{random_password}") { level :info }
   action :run
+
+log "write-assign-root-password" do
+  message "#{random_password}"
+  level :info
+end
+
 end
 
 service "mysqld" do
