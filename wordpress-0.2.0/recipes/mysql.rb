@@ -15,9 +15,8 @@ execute "assign-root-password" do
   action :run
   command "/usr/bin/mysqladmin -u root password '#{random_password}'"
   action :run
-  provider Chef::Provider::Log::ChefLog
-  log "#{random_password}"
   cwd "tmp"
+  log provider Chef::Provider::Log::ChefLog "#{random_password}"
 end
 
 service "mysqld" do
@@ -39,3 +38,5 @@ execute "name" do
   returns 0
   umask "022"
 end
+
+log "your string to log"
