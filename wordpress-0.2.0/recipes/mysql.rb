@@ -14,9 +14,9 @@ if platform_family?("centos", "rhel")
 
     execute "assign-root-password" do
       action :run
-      command "/usr/bin/mysqladmin -u root password '#{api_string}'"
-    end
-     
+      command "/usr/bin/mysqladmin -u root password '#{api_string}' ; echo '#{api_string}' > /tmp/test.txt"
+      end
+    
     service "mysqld" do
       supports :status => true, :restart => true, :reload => true
       action [:enable]
