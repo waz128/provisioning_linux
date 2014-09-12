@@ -1,12 +1,3 @@
-$global_variable = mypass
-class myPass
-   
-        def random_password(length=10)
-          CHARS = ('0'..'9').to_a + ('A'..'Z').to_a + ('a'..'z').to_a
-          CHARS.sort_by { rand }.join[0...length]
-        end
-end
-
 if platform_family?("centos", "rhel")
 
   package "mysql-server" do
