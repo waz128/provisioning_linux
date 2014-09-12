@@ -32,5 +32,3 @@ if platform_family?("centos", "rhel")
 else
 	print "Not Amazon"
 end
-
-
