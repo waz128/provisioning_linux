@@ -13,30 +13,10 @@ execute "assign-root-password" do
       CHARS.sort_by { rand }.join[0...length]
     end
   action :run
-  command "/usr/bin/mysqladmin -u root password '#{random_password}'"
-  action :run
-  cwd "tmp"
-  provider Chef::Provider::Log::ChefLog "#{random_password}"
+  command "/usr/bin/mysqladmin -u root password '#{random_password}' >> /tmp/mysqlpass.txt"
 end
 
 service "mysqld" do
   supports :status => true, :restart => true, :reload => true
   action [:enable]
 end
-
-
-execute "name" do
-  action :run
-  command "ls -la"
-  creates "/tmp/something"
-  cwd "/tmp"
-  environment ({'HOME' => '/home/myhome'})
-  user "root"
-  group "root"
-  path "['/opt/bin','/opt/sbin']"
-  timeout 3600
-  returns 0
-  umask "022"
-end
-
-log "your string to log"
