@@ -13,7 +13,9 @@ bash "assign-root-password" do
   user "root"
   cwd "/tmp"
   code <<-EOH
-  /usr/bin/mysqladmin -u root password 'genpasswd' > /tmp/mysqlroot.txt
+  $mypass = genpasswd
+  /usr/bin/mysqladmin -u root password '$mypass'
+  touch /tmp/mypass.txt && echo 'mypass' > /tmp/mypass.txt
   EOH
 end
 
