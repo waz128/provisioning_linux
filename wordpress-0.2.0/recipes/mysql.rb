@@ -14,8 +14,7 @@ ruby "assign-root-password" do
     end
   user "root"
   code <<-EOH
-  "/usr/bin/mysqladmin -u root password '#{random_password}'"
-  vim #{random_password}.txt
+  /usr/bin/mysqladmin -u root password '#{random_password}'
   EOH
 end
 
