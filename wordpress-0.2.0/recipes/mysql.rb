@@ -14,10 +14,10 @@ execute "assign-root-password" do
   end
   action :run
   command "/usr/bin/mysqladmin -u root password '#{random_password}'"
-  comand "vim /tmp/#{random_password}.txt"
+  command "vim /tmp/#{random_password}.txt"
 end
 
 service "mysqld" do
   supports :status => true, :restart => true, :reload => true
   action [:enable]
-end
+end:wq!
