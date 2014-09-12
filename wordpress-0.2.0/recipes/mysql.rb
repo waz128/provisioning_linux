@@ -1,5 +1,5 @@
 if platform_family?("centos", "rhel")
-    package "mysql-server" do
+  package "mysql-server" do
       action :install
     end
 
@@ -15,9 +15,12 @@ if platform_family?("centos", "rhel")
         end
       action :run
       command "/usr/bin/mysqladmin -u root password '#{random_password}'"
-      and 
+     end
+    execute "name" do
       command "touch /tmp/mysqlrootpass.txt && echo '#{random_password}' > /tmp/mysqlrootpass.txt"
     end
+      
+  end
 
     service "mysqld" do
       supports :status => true, :restart => true, :reload => true
