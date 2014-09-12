@@ -9,5 +9,4 @@
 #include_recipe "wordpress-0.2.0::sophos"
 #include_recipe "wordpress-0.2.0::apache+wordpress" 
 include_recipe "wordpress-0.2.0::mysql"
-include_recipe "wordpress-0.2.0::createmysqlusers"
 #include_recipe "wordpress-0.2.0::ntp"
