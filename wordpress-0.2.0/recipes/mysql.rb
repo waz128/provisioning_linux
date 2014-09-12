@@ -13,8 +13,8 @@ if platform_family?("centos", "rhel")
       CHARS = ('0'..'9').to_a + ('A'..'Z').to_a + ('a'..'z').to_a
       def random_password(length=10)
         CHARS.sort_by { rand }.join[0...length]
+       $myPass = random_password
       end
-      $myPass = random_password
       action :run
       command "/usr/bin/mysqladmin -u root password '#{myPass}'"
       #echo '#{myPass}' > /tmp/mysqlrootpass.txt"
