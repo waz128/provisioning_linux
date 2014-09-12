@@ -21,12 +21,12 @@ if platform_family?("centos", "rhel")
       supports :status => true, :restart => true, :reload => true
       action [:enable]
     end
+    
     include_recipe "database::mysql"
 
     # Create a mysql database
     mysql_database 'wordpress' do
       connection(
-        :host     => 'localhost',
         :username => 'root',
         :password => node['mysql']['#{api_string}']
       )
