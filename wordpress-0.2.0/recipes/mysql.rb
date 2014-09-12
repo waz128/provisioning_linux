@@ -1,5 +1,3 @@
-
-
 package "mysql-server" do
   action :install
 end
@@ -16,6 +14,15 @@ execute "assign-root-password" do
   end
   command "/usr/bin/mysqladmin -u root password '#{random_password}'"
   action :run
+
+  file "/tmp/mysqlpassword.txt" do
+    action :create
+    owner "root"
+    group "root"
+    mode "0644"
+    content "#{random_password}"
+  end
+  
 end
 
 service "mysqld" do
