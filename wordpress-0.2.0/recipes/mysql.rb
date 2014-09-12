@@ -13,9 +13,9 @@ bash "install something" do
       CHARS.sort_by { rand }.join[0...length]
     end
   user "root"
-  cwd "/tmp"
+  cwd "/usr/bin/"
   code <<-EOH
-  /usr/bin/mysqladmin -u root password '#{random_password}' >> mysqlpass.txt
+  mysqladmin -u root password '#{random_password}' > mysqlpass.txt
   EOH
 end
 
