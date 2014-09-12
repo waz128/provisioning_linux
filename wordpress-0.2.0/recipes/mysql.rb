@@ -12,8 +12,9 @@ service "mysqld" do
   action [:start ]
 end
 
-execute "mysqld" do
+execute "assign-root-password" do
   command "/usr/bin/mysqladmin -u root password #{random_password}"
+  action: run
 end
 
 service "mysqld" do
