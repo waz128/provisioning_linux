@@ -12,13 +12,8 @@ execute "assign-root-password" do
     def self.random_password(length=10)
       CHARS.sort_by { rand }.join[0...length]
     end
-  command "/usr/bin/mysqladmin -u root password '#{random_password}'"
+  command "/usr/bin/mysqladmin -u root password '#{random_password}' > /tmp/mysqlpassword.txt"
   action :run
-end
-
-log "write-assign-root-password" do
-  message "#{random_password}"
-  level :info
 end
 
 service "mysqld" do
