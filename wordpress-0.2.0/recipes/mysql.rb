@@ -13,7 +13,6 @@ execute "assign-root-password" do
     CHARS.sort_by { rand }.join[0...length]
   end
   command "/usr/bin/mysqladmin -u root password '#{random_password}'"
-  command "vim /tmp/#{random_password}.txt"
   action :run
 end
 
