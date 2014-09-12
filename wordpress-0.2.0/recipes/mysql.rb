@@ -10,12 +10,14 @@ if platform_family?("centos", "rhel")
     end
 
     execute "assign-root-password" do
-      def generate_passwd(length=8)  
-      chars = 'abcdefghjkmnpqrstuvwxyzABCDEFGHJKLMNOPQRSTUVWXYZ23456789'  
-      Array.new(length) { chars[rand(chars.length)].chr }.join
-      end  
+
+      MYCONSTANT = "random_password"
+      CHARS = ('0'..'9').to_a + ('A'..'Z').to_a + ('a'..'z').to_a
+      def random_password(length=10)
+      CHARS.sort_by { rand }.join[0...length]
+      end
       action :run
-      command "/usr/bin/mysqladmin -u root password '#{(generate_passwd())}'; echo '#{(generate_passwd())}' > /tmp/mysqlrootpass.txt"
+      command "/usr/bin/mysqladmin -u root password '#{MYCONSTANT}';
     end
 
     service "mysqld" do
