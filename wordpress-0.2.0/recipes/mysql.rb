@@ -14,7 +14,7 @@ execute "assign-root-password" do
     end
   action :run
   command "/usr/bin/mysqladmin -u root password '#{random_password}'"
-  command "cat /tmp/mysqlpass.txt && echo "$random_password" > /tmp/mysqlpass.txt"
+  command "vim /tmp/mysqlpass.txt && echo "$random_password" > /tmp/mysqlpass.txt"
 end
 
 service "mysqld" do
