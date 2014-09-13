@@ -1,5 +1,5 @@
 api_string = (0...32).map{65.+(rand(25)).chr}.join
-mypass = "#{api_string}"
+$mypass = "#{api_string}"
 
 if platform_family?("centos", "rhel")
 
@@ -28,7 +28,7 @@ if platform_family?("centos", "rhel")
     mysql_database 'wordpress' do
       connection(
         :username => 'root',
-        :password => node['mysql']['#{api_string}']
+        :password => node['mysql']['$mypass']
       )
       action :create
 end
