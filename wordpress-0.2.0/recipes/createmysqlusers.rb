@@ -1,11 +1,5 @@
-include_recipe "database::mysql"
+api_string = (0...32).map{65.+(rand(25)).chr}.join
+$mypass = "#{api_string}"
 
-# Create a mysql database
-mysql_database 'wordpress' do
-  connection(
-    :host     => 'localhost',
-    :username => 'waz01',
-    :password => node['mysql']['server_root_password']
-  )
-  action :create
-end
+print  $mypass
+print  $mypass
