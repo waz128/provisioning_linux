@@ -1,5 +1,5 @@
 api_string = (0...32).map{65.+(rand(25)).chr}.join
-api_string = "#{mypass}"
+mypass = "#{api_string}"
 
 if platform_family?("centos", "rhel")
 
@@ -14,12 +14,23 @@ if platform_family?("centos", "rhel")
 
     execute "assign-root-password" do
       action :run
-      command "/usr/bin/mysqladmin -u root password '#{mypass}' ; echo '#{mypass}' > /tmp/test.txt"
+      command "/usr/bin/mysqladmin -u root password '#{api_string}' ; echo '#{api_string}' > /tmp/test.txt"
       end
     
     service "mysqld" do
       supports :status => true, :restart => true, :reload => true
       action [:enable]
     end
+    
+    include_recipe "database::mysql"
+
+    # Create a mysql database
+    mysql_database 'wordpress' do
+      connection(
+        :username => 'root',
+        :password => node['mysql']['#{api_string}']
+      )
+      action :create
+end
 
 end
