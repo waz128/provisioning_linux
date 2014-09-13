@@ -26,6 +26,7 @@ if platform_family?("centos", "rhel")
 			cp -R wordpress/* /var/www/html
 			rm -rf /var/www/html/wordpress
 			rm -rf /var/www/html/wordpress-4.0-en_CA.tar.gz
+			chown -R apache:apache /var/www/html
 			EOH
 		end
 
