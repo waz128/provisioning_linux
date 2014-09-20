@@ -1,25 +1,38 @@
-api_string = (0...32).map{65.+(rand(25)).chr}.join
-$mypass = "#{api_string}"
+include_recipe "mysql::ruby"
 
-if platform_family?("centos", "rhel")
+mysql_connection = {:host => "localhost", :username => 'root',
+                    :password => node['mysql']['server_root_password']}
 
-  package "mysql-server" do
-      action :install
-    end
+mysql_database node['mysite']['database'] do
+  connection mysql_connection
+  action :create
+end
 
-    service "mysqld" do
-      supports :status => true, :restart => true, :reload => true
-      action [:start ]
-    end
+mysql_database_user "root" do
+  connection mysql_connection
+  password node['mysql']['server_root_password']
+  database_name node['mysite']['database']
+  host 'localhost'
+  privileges [:select,:update,:insert, :delete]
+  action [:create, :grant]
+end
 
-    execute "assign-root-password" do
-      action :run
-      command "/usr/bin/mysqladmin -u root password '#{api_string}' ; echo '#{api_string}' > /tmp/test.txt"
-      end
-    
-    service "mysqld" do
-      supports :status => true, :restart => true, :reload => true
-      action [:enable]
-    end
+mysql_conn_args = "--user=root --password=#{node['mysql']['server_root_password']}"
 
+execute 'insert-dummy-data' do
+  command %Q{mysql #{mysql_conn_args} #{node['mysite']['database']} <<EOF
+    CREATE TABLE transformers (name VARCHAR(32) PRIMARY KEY, type VARCHAR(32));
+    INSERT INTO transformers (name, type) VALUES ('Hardhead','Headmaster');
+    INSERT INTO transformers (name, type) VALUES ('Chromedome','Headmaster');
+    INSERT INTO transformers (name, type) VALUES ('Brainstorm','Headmaster');
+    INSERT INTO transformers (name, type) VALUES ('Highbrow','Headmaster');
+    INSERT INTO transformers (name, type) VALUES ('Cerebros','Headmaster');
+    INSERT INTO transformers (name, type) VALUES ('Fortress Maximus','Headmaster');
+    INSERT INTO transformers (name, type) VALUES ('Chase','Throttlebot');
+    INSERT INTO transformers (name, type) VALUES ('Freeway','Throttlebot');
+    INSERT INTO transformers (name, type) VALUES ('Rollbar','Throttlebot');
+    INSERT INTO transformers (name, type) VALUES ('Searchlight','Throttlebot');
+    INSERT INTO transformers (name, type) VALUES ('Wideload','Throttlebot');
+EOF}
+  not_if "echo 'SELECT count(name) FROM transformers' | mysql #{mysql_conn_args} --skip-column-names #{node['mysite']['database']} | grep '^3$'"
 end
