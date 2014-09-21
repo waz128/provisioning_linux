@@ -23,6 +23,19 @@ if platform_family?("centos", "rhel")
     execute "assign-root-password" do
       action :run
       command "/usr/bin/mysqladmin -u root password '#{mysqlroot}' ; echo '#{mysqlroot}' > /tmp/mysqrootpassword.txt"
+      command " "
+    end
+
+    # Externalize conection info in a ruby hash
+    mysql_connection_info = {
+      :host     => 'localhost',
+      :username => 'root',
+      :password => node['mysql']['server_root_password']
+    }
+
+    mysql_database_user '' do
+    connection mysql_connection_info
+    action     :drop
     end
 
     # Create a mysql database
@@ -34,13 +47,6 @@ if platform_family?("centos", "rhel")
       )
       action :create
     end
-
-    # Externalize conection info in a ruby hash
-    mysql_connection_info = {
-      :host     => 'localhost',
-      :username => 'root',
-      :password => node['mysql']['server_root_password']
-    }
 
     #Create a mysql user
     mysql_database_user 'wordpress_prod' do
@@ -68,9 +74,20 @@ if platform_family?("centos", "rhel")
       action [:enable]
     end
 
+
+
     execute "save-mysqluserpass" do
       action :run
       command "echo '#{mysqluser}' > /tmp/mysqluserpassword.txt"
     end
     
+end
+
+
+# bulk drop sql server users
+%w{ disenfranchised foo_user }.each do |user|
+  sql_server_database_user user do
+    connection sql_server_connection_info
+    action :drop
+  end
 end
