@@ -45,9 +45,9 @@ if platform_family?("centos", "rhel")
     #Create a mysql user
     mysql_database_user 'wordpress_prod' do
       connection mysql_connection_info
-      password      'test1'
+      password      node['mysql']['server_user_password'] 
       database_name 'wordpress'
-      host          'localhost'
+      host          'localhost', '%'
       #privileges    [:select,:insert,:update,:delete,:create,:drop,:references,:index,:alter,:'create temporary tables',:'lock tables',:execute,:'create view',:'show view',:'create routine',:'alter routine',:trigger]
       action        :create
     end
