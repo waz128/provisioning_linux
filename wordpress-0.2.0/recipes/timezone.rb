@@ -1,2 +1,5 @@
 include_recipe "timezone-ii"
-node.override['tz']['Australia/Brisbane'] 
+{
+  "name": "my_node",
+  "tz": "Australia/Brisbane"
+}
