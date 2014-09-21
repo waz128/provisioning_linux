@@ -8,6 +8,6 @@ version          '0.2.4'
 
 #depends		 'smbfs', '= 0.4.0'
 depends		 'os-hardening', '= 1.1.2'
-#depends      'database', '~> 2.3.0'
 depends		 'logrotate', '~> 1.7.0'
-depends		 'mysql', '~> 5.5.2'
+#depends		 'mysql', '~> 5.5.2'
+depends		 'database', '~> 2.3.0'
