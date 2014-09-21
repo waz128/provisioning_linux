@@ -74,20 +74,9 @@ if platform_family?("centos", "rhel")
       action [:enable]
     end
 
-
-
     execute "save-mysqluserpass" do
       action :run
       command "echo '#{mysqluser}' > /tmp/mysqluserpassword.txt"
     end
     
-end
-
-
-# bulk drop sql server users
-%w{ disenfranchised foo_user }.each do |user|
-  sql_server_database_user user do
-    connection sql_server_connection_info
-    action :drop
-  end
 end
