@@ -1,9 +1,18 @@
-name 'timezone'
-description 'Role applied to all systems'
-default_attributes(
-  'ntp' => {
-    'servers' => ['0.amazon.pool.ntp.org', '1.amazon.pool.ntp.org', '2.amazon.pool.ntp.org', '3.amazon.pool.ntp.org']
-  }
-)
+# Cookbook Name:: melbit_linux
+# Attributes:: default
+#
+# Copyright 2013, Melbourne IT Enterprise Services
+#
+# All rights reserved - Do Not Redistribute
+#
 
-t
+# NTP Settings
+default[:ntp][:servers] = [ "0.amazon.pool.ntp.org", "1.amazon.pool.ntp.org", "2.amazon.pool.ntp.org", "3.amazon.pool.ntp.org" ]
+
+# Timezone Settings
+default[:timezone] = "Australia/Brisbane"
+
+# /etc/rc.local Additional Commands to run
+default[:wordpress-0.2.0][:rc_local_commands] = []
+
+

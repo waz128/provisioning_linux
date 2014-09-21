@@ -1,0 +1,24 @@
+<controller>
+   domain = MelbourneIT
+   hub = <%= node[:nimsoft][:hub1name] %>
+   hubip = <%= node[:nimsoft][:hub1ip] %>
+   hubrobotname = <%= node[:nimsoft][:hub1robotname] %>
+   hubport = 48002
+   robotname = <%= node[:nimsoft][:robotname] %>
+   robotip = <%= node[:nimsoft][:robotip] %>
+   robotip_alias = <%= node[:nimsoft][:robotaliasip] %>
+   first_probe_port = 48000
+   autoremove = yes
+   robot_mode = normal
+   access_0 = 0
+   access_1 = 1
+   access_2 = 2
+   access_3 = 3
+   access_4 = 4
+   
+   secondary_domain = MelbourneIT
+   secondary_hub = <%= node[:nimsoft][:hub2name] %>
+   secondary_hubrobotname = <%= node[:nimsoft][:hub2robotname] %>
+   secondary_hubip = <%= node[:nimsoft][:hub2ip] %>
+   secondary_hubport = 48002
+</controller>
