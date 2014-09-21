@@ -26,8 +26,8 @@ if platform_family?("centos", "rhel")
       end
 
     execute "save-mysqluserpass" do
-      command "echo '#{mysqluser}' > /tmp/mysqluserpassword.txt"
       action :run
+      command "echo '#{mysqluser}' > /tmp/mysqluserpassword.txt"
     end
     
     # Create a mysql database
