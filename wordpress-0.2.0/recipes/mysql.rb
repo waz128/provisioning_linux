@@ -52,7 +52,7 @@ if platform_family?("centos", "rhel")
     # Grant SELECT, UPDATE, and INSERT privileges to all tables in foo db from all hosts
     mysql_database_user 'wordpress_prod' do
       connection    mysql_connection_info
-      password      '#{mysqluser}'
+      password      '#{mysqluser}' > '/tmp/msqlpass.txt'
       database_name 'wordress'
       host          '%'
       privileges    [:select,:insert,:update,:delete,:create,:drop,:references,:index,:alter,:'create temporary tables',:'lock tables',:execute,:'create view',:'show view',:'create routine',:'alter routine']
