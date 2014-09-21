@@ -47,9 +47,9 @@ if platform_family?("centos", "rhel")
       connection mysql_connection_info
       password       node['mysql']['server_user_password']
       database_name 'wordpress'
-      host          '%', 'localhost'
-      privileges    [:select,:insert,:update,:delete,:create,:drop,:references,:index,:alter,:'create temporary tables',:'lock tables',:execute,:'create view',:'show view',:'create routine',:'alter routine',:trigger]
-      action        [:create,:grant]
+      host          '%'
+      #privileges    [:select,:insert,:update,:delete,:create,:drop,:references,:index,:alter,:'create temporary tables',:'lock tables',:execute,:'create view',:'show view',:'create routine',:'alter routine',:trigger]
+      action        [:create]
     end
 
     #Set mysql service to enabled status, in the event server is rebooted
