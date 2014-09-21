@@ -45,11 +45,11 @@ if platform_family?("centos", "rhel")
     #Create a mysql user
     mysql_database_user 'wordpress_prod' do
       connection mysql_connection_info
-      password       'test1'
+      password      'test1'
       database_name 'wordpress'
       host          '%'
       #privileges    [:select,:insert,:update,:delete,:create,:drop,:references,:index,:alter,:'create temporary tables',:'lock tables',:execute,:'create view',:'show view',:'create routine',:'alter routine',:trigger]
-      action        [:create]
+      action        :create
     end
 
     #Set mysql service to enabled status, in the event server is rebooted
