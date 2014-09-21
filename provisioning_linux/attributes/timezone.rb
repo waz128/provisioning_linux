@@ -13,6 +13,6 @@ default[:ntp][:servers] = [ "0.amazon.pool.ntp.org", "1.amazon.pool.ntp.org", "2
 default[:timezone] = "Australia/Brisbane"
 
 # /etc/rc.local Additional Commands to run
-default[:melbit_linux][:rc_local_commands] = []
+default[:orovisioning_linux][:rc_local_commands] = []
 
 
