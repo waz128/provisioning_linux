@@ -1,7 +1,7 @@
 include_recipe "database::mysql"
 
 api_string = (0...32).map{65.+(rand(25)).chr}.join
-default['mysql']['server_root_password'] = "#{api_string}"
+node.override['mysql']['server_root_password'] = "#{api_string}"
 
 if platform_family?("centos", "rhel")
 
