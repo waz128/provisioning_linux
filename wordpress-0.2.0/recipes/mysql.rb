@@ -1,7 +1,10 @@
 include_recipe "database::mysql"
 
-api_string = (0...32).map{65.+(rand(25)).chr}.join
-node.override['mysql']['server_root_password'] = "#{api_string}"
+mysqlroot = (0...32).map{65.+(rand(25)).chr}.join
+node.override['mysql']['server_root_password'] = "#{mysqlroot}"
+
+mysqluser = (0...32).map{65.+(rand(25)).chr}.join
+$mysqlpass = "#{mysqluser}"
 
 if platform_family?("centos", "rhel")
   
@@ -19,7 +22,7 @@ if platform_family?("centos", "rhel")
     # Set a mySQL root password and output it to a text file under /tmp/mysqlrootpassword.txt
     execute "assign-root-password" do
       action :run
-      command "/usr/bin/mysqladmin -u root password '#{api_string}' ; echo '#{api_string}' > /tmp/mysqrootpassword.txt"
+      command "/usr/bin/mysqladmin -u root password '#{mysqlroot}' ; echo '#{mysqlroot}' > /tmp/mysqrootpassword.txt"
       end
 
     # Create a mysql database
@@ -42,17 +45,17 @@ if platform_family?("centos", "rhel")
     #Create a mysql user
     mysql_database_user 'wordpress_prod' do
       connection mysql_connection_info
-      password 'super_secret'
+      password '#{mysqluser}'
       action :create
       end
 
     # Grant SELECT, UPDATE, and INSERT privileges to all tables in foo db from all hosts
-    mysql_database_user 'foo_user' do
+    mysql_database_user 'wordpress_prod' do
       connection    mysql_connection_info
-      password      'super_secret'
-      database_name 'foo'
+      password      '#{mysqluser}'
+      database_name 'wordress'
       host          '%'
-      privileges    [:select, :insert, :update, :delete, :create, :drop, :references, :index, :alter, :createtemporarytables, :locktables, :execute, :createview, :showview, :createroutine, :alterroutine]
+      privileges    [:select,:insert,:update,:delete,:create,:drop,:references,:index,:alter,:'create temporary tables',:'lock tables',:execute,:'create view',:'show view',:'create routine',:'alter routine']
       action        :grant
       end
 
@@ -60,5 +63,6 @@ if platform_family?("centos", "rhel")
     service "mysqld" do
       supports :status => true, :restart => true, :reload => true
       action [:enable]
-    end    
+    end
+
 end
