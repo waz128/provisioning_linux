@@ -42,14 +42,18 @@ if platform_family?("centos", "rhel")
       :password => node['mysql']['server_root_password']
     }
 
+    execute "save-mysqluserpass" do
+      action :run
+      command "echo '#{mysqluser}' > /tmp/mysqluserpassword.txt"
+    end
+    
     #Create a mysql user
     mysql_database_user 'wordpress_prod' do
       connection mysql_connection_info
       password '#{mysqluser}'
       action :create
-      command "echo '#{mysqluser}' > /tmp/mysqluserpassword.txt"
       end
-    
+
     # Grant SELECT, UPDATE, and INSERT privileges to all tables in foo db from all hosts
     mysql_database_user 'wordpress_prod' do
       connection    mysql_connection_info
