@@ -52,7 +52,7 @@ if platform_family?("centos", "rhel")
       password      'super_secret'
       database_name 'foo'
       host          '%'
-      privileges    [:select, :insert, :update, :delete, :create, :drop, :references, :index, :alter, :create temporary tables, :lock tables, :execute, :create view, :show view, :create routine, :alter routine]
+      privileges    [:select, :insert, :update, :delete, :create, :drop, :references, :index, :alter, :createtemporarytables, :locktables, :execute, :createview, :showview, :createroutine, :alterroutine]
       action        :grant
       end
 
