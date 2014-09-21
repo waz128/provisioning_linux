@@ -23,7 +23,6 @@ if platform_family?("centos", "rhel")
     execute "assign-root-password" do
       action :run
       command "/usr/bin/mysqladmin -u root password '#{mysqlroot}' ; echo '#{mysqlroot}' > /tmp/mysqrootpassword.txt"
-      command " "
     end
 
     # Externalize conection info in a ruby hash
