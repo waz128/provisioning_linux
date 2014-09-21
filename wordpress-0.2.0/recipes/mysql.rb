@@ -47,7 +47,7 @@ if platform_family?("centos", "rhel")
       connection mysql_connection_info
       password      'test1'
       database_name 'wordpress'
-      host          '%'
+      host          'localhost'
       #privileges    [:select,:insert,:update,:delete,:create,:drop,:references,:index,:alter,:'create temporary tables',:'lock tables',:execute,:'create view',:'show view',:'create routine',:'alter routine',:trigger]
       action        :create
     end
