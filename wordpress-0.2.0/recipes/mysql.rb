@@ -50,7 +50,7 @@ if platform_family?("centos", "rhel")
     #Create a mysql user
     mysql_database_user 'wordpress_prod' do
       connection mysql_connection_info
-      password      'echo #{mysqluser}'
+      password      '$mysqlpass'
       action        :create
       end
 
