@@ -22,7 +22,6 @@ if platform_family?("centos", "rhel")
     # Create a mysql database
     mysql_database 'waseemtest' do
       connection(
-        :host     => 'localhost',
         :username => 'root',
         :password => node['mysql']['#{api_string}']
       )
