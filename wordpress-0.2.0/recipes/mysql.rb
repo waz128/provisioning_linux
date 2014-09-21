@@ -4,7 +4,7 @@ mysqlroot = (0...32).map{65.+(rand(25)).chr}.join
 node.override['mysql']['server_root_password'] = "#{mysqlroot}"
 
 mysqluser = (0...32).map{65.+(rand(25)).chr}.join
-$mysqlpass = "#{mysqluser}"
+node.override['mysql']['server_user_password'] = "#{mysqluser}"
 
 if platform_family?("centos", "rhel")
   
@@ -23,7 +23,7 @@ if platform_family?("centos", "rhel")
     execute "assign-root-password" do
       action :run
       command "/usr/bin/mysqladmin -u root password '#{mysqlroot}' ; echo '#{mysqlroot}' > /tmp/mysqrootpassword.txt"
-      end
+    end
 
     # Create a mysql database
     mysql_database 'wordpress' do
@@ -33,7 +33,7 @@ if platform_family?("centos", "rhel")
         :password => node['mysql']['server_root_password']
       )
       action :create
-      end
+    end
 
     # Externalize conection info in a ruby hash
     mysql_connection_info = {
@@ -42,26 +42,15 @@ if platform_family?("centos", "rhel")
       :password => node['mysql']['server_root_password']
     }
 
-    execute "save-mysqluserpass" do
-      action :run
-      command "echo '#{mysqluser}' > /tmp/mysqluserpassword.txt"
-    end
-    
     #Create a mysql user
     mysql_database_user 'wordpress_prod' do
       connection mysql_connection_info
-      password      '$mysqlpass'
-      action        :create
-      end
-
-    # Grant SELECT, UPDATE, and INSERT privileges to all tables in foo db from all hosts
-    mysql_database_user 'wordpress_prod' do
-      connection    mysql_connection_info
+      password      => node['mysql']['server_user_password']
       database_name 'wordress'
       host          '%'
       privileges    [:select,:insert,:update,:delete,:create,:drop,:references,:index,:alter,:'create temporary tables',:'lock tables',:execute,:'create view',:'show view',:'create routine',:'alter routine',:trigger]
-      action        :grant
-      end
+      action        [:create,:grant]
+    end
 
     #Set mysql service to enabled status, in the event server is rebooted
     service "mysqld" do
@@ -69,4 +58,9 @@ if platform_family?("centos", "rhel")
       action [:enable]
     end
 
+    execute "save-mysqluserpass" do
+      action :run
+      command "echo '#{mysqluser}' > /tmp/mysqluserpassword.txt"
+    end
+    
 end
