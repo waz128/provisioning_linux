@@ -32,12 +32,13 @@ if platform_family?("centos", "rhel")
       :password => node['mysql']['server_root_password']
     }
 
+    # Drops anonymous mysql users to prevent anonymous login
     mysql_database_user '' do
     connection mysql_connection_info
     action     :drop
     end
 
-    # Create a mysql database
+    # Create a mysql database called wordpress
     mysql_database 'wordpress' do
       connection(
         :host     => 'localhost',
@@ -47,7 +48,7 @@ if platform_family?("centos", "rhel")
       action :create
     end
 
-    #Create a mysql user
+    #Create a mysql user named wordpress with set of grant statements for localhost conneciton
     mysql_database_user 'wordpress_prod' do
       connection mysql_connection_info
       password      node['mysql']['server_user_password'] 
@@ -57,7 +58,7 @@ if platform_family?("centos", "rhel")
       action        [:create, :grant]
     end
 
-    #Create a mysql user
+    #Create a mysql user named wordpress with set of grant statements for conneciton from anywhere
     mysql_database_user 'wordpress_prod' do
       connection mysql_connection_info
       password      node['mysql']['server_user_password'] 
@@ -73,6 +74,7 @@ if platform_family?("centos", "rhel")
       action [:enable]
     end
 
+    #Saves the password for the wordpress database
     execute "save-mysqluserpass" do
       action :run
       command "echo '#{mysqluser}' > /tmp/mysqluserpassword.txt"
