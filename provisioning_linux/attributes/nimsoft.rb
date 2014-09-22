@@ -20,12 +20,12 @@
 #
 
 default[:nimsoft][:packages] = "_AWS_Linux"
-default[:nimsoft][:robotname] = node[:ec2][:instance_id]
-default[:nimsoft][:robotip] = node[:ec2][:local_ipv4]
-default[:nimsoft][:robotaliasip] = node[:ec2][:public_ipv4]
+default[:nimsoft][:robotname] = node[:instance][:instance_id]
+default[:nimsoft][:robotip] = node[:instance][:local_ipv4]
+default[:nimsoft][:robotaliasip] = node[:instance][:public_ipv4]
 
 # Aggregation Hub your robot is connecting to.
-case node[:ec2][:placement_availability_zone]
+case node[:instance][:placement_availability_zone]
 	when "ap-southeast-2a"
 		default[:nimsoft][:hub1ip] = "54.252.177.16"
 		default[:nimsoft][:hub1name] = "AMZ-AGRHUB2"
