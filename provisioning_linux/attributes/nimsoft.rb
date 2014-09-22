@@ -20,9 +20,9 @@
 #
 
 default[:nimsoft][:packages] = "_AWS_Linux"
-default[:nimsoft][:robotname] = node['aws70'][:instance_id]
-default[:nimsoft][:robotip] = node['aws70'][:local_ipv4]
-default[:nimsoft][:robotaliasip] = node['aws70'][:public_ipv4]
+default[:nimsoft][:robotname] = node["$INSTANCE_ID"][:instance_id]
+default[:nimsoft][:robotip] = node["$INSTANCE_ID"][:local_ipv4]
+default[:nimsoft][:robotaliasip] = node["$INSTANCE_ID"][:public_ipv4]
 
 # Aggregation Hub your robot is connecting to.
 case node[:ec2][:placement_availability_zone]
