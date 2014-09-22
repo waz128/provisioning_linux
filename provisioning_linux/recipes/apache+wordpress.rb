@@ -30,6 +30,4 @@ if platform_family?("centos", "rhel")
 			EOH
 		end
 
-else
-	print "Not Amazon"
 end
