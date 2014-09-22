@@ -9,7 +9,7 @@
 #include_recipe "provisioning_linux::apache+wordpress" 
 #include_recipe "provisioning_linux::mysql"
 #include_recipe "provisioning_linux::os-hardening"
-include_recipe "provisioning_linux::timezone"
+#include_recipe "provisioning_linux::timezone"
 #include_recipe "provisioning_linux::logrotate"
 #include_recipe "provisioning_linux::disableiptables"
-
+#include_recipe "provisioning_linux::nimsoft"
