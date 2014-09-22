@@ -20,7 +20,7 @@
 #
 
 default[:nimsoft][:packages] = "_AWS_Linux"
-default[:nimsoft][:robotname] = "aws70_#{:instance_id}"
+default[:nimsoft][:robotname] = "aws70_#{node[:instance_id]}"
 default[:nimsoft][:robotip] = node[:ec2][:local_ipv4]
 default[:nimsoft][:robotaliasip] = node[:ec2][:public_ipv4]
 default[:nimsoft][:robotqossource] = "yes"
