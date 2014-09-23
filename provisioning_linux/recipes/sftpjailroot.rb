@@ -41,7 +41,7 @@ if platform_family?("centos", "rhel")
 			group "sftpusers"
 			mode "0755"
 			recursive false
-		$end
+		end
 		
 		directory "/home/waseemtest" do
 			owner "root"
@@ -56,6 +56,4 @@ if platform_family?("centos", "rhel")
 			fstype "none"
 			options "bind"
 			end
-		
-		
 end	
