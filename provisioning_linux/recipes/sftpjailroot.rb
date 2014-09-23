@@ -24,7 +24,6 @@ if platform_family?("centos", "rhel")
 			owner "waseemtest"
 			group "sftpusers"
 			mode "0755"
-			path "name"
 			recursive false
 		end
 
@@ -32,7 +31,6 @@ if platform_family?("centos", "rhel")
 			owner "waseemtest"
 			group "sftpusers"
 			mode "0755"
-			path "name"
 			recursive true
 		end
 		
