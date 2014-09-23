@@ -28,7 +28,7 @@ if platform_family?("centos", "rhel")
 			recursive false
 		end
 
-		directory "./home/waseemtest/" do
+		directory "/home/waseemtest/" do
 			owner "waseemtest"
 			group "sftpusers"
 			mode "0755"
@@ -36,7 +36,7 @@ if platform_family?("centos", "rhel")
 			recursive true
 		end
 		
-		directory "./home/waseemtest" do
+		directory "/home/waseemtest" do
 			owner "root"
 			group "sftpusers"
 			mode "0770"
@@ -44,10 +44,12 @@ if platform_family?("centos", "rhel")
 			recursive false
 		end
 
-		mount "./home/waseemtest/public_html" do
+		mount "/var/www/html" do
 			action [:mount, :enable]
-			mount_point "/var/www/html"
-		end
+			device "/home/waseemtest/public_html"
+			fstype "none"
+			options "bind"
+			end
 		
 		
 end	
