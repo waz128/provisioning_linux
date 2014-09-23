@@ -19,24 +19,24 @@ if platform_family?("centos", "rhel")
 			members ['waseemtest','apache']
 		end
 
-		directory "/home/waseemtest/public_html" do
+		directory "/home/waseemtest/public_html/" do
 			action :create
-			owner "root"
-			group "root"
+			owner "waseemtest"
+			group "sftpusers"
 			mode "0755"
 			path "name"
 			recursive false
 		end
 
-		directory "/home/waseemtest" do
-			owner "waz"
+		directory "./home/waseemtest/" do
+			owner "waseemtest"
 			group "sftpusers"
 			mode "0755"
 			path "name"
 			recursive true
 		end
 		
-		directory "/home/waseemtest" do
+		directory "./home/waseemtest" do
 			owner "root"
 			group "sftpusers"
 			mode "0770"
@@ -44,10 +44,9 @@ if platform_family?("centos", "rhel")
 			recursive false
 		end
 
-		mount "/home/waseemtest/public_html" do
+		mount "./home/waseemtest/public_html" do
 			action [:mount, :enable]
 			mount_point "/var/www/html"
-			options "bind, rw"
 		end
 		
 		
