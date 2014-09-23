@@ -23,23 +23,14 @@ if platform_family?("centos", "rhel")
 			password "#{randompass}"
 			supports :manage_home => true 
 		end
-		
-		node['sshd']['sshd_config']['Match'] = {
-			  'Group sftpusers' => {
+
+		openssh_server node['sshd']['config_file'] do
+
+			Match  'Group sftpusers' => {
 			   'ChrootDirectory'=> '%h'
 			   'ForceCommand' => 'internal-sftp',
 			   'AllowTcpForwarding' => 'no',
-			   'X11Forwarding' => 'no'
-
-			}
-			  'User #{randomuser}' => {
-			    'ChrootDirectory' => '%h',
-			    'ForceCommand' => 'internal-sftp',
-			    'AllowTcpForwarding' => 'no',
-			    'X11Forwarding' => 'no'
-			  }
-			}
-
+			 }
 		end
 
 end	
