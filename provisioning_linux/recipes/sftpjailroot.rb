@@ -19,14 +19,6 @@ if platform_family?("centos", "rhel")
 			members ['waseemtest','apache']
 		end
 
-		directory "/home/waseemtest/public_html/" do
-			action :create
-			owner "waseemtest"
-			group "sftpusers"
-			mode "0755"
-			recursive false
-		end
-
 		directory "/home/waseemtest/" do
 			owner "waseemtest"
 			group "sftpusers"
@@ -37,10 +29,27 @@ if platform_family?("centos", "rhel")
 		directory "/home/waseemtest" do
 			owner "root"
 			group "sftpusers"
-			mode "0770"
+			mode "0775"
 			path "name"
 			recursive false
 		end
+
+		#directory "/home/waseemtest/public_html/" do
+		#	action :create
+		#	owner "waseemtest"
+		#	group "sftpusers"
+		#	mode "0755"
+		#	recursive false
+		#end
+
+		%w[ /home /home/waseemtest /home/waseemtest/public_html ].each do |path|
+		  directory path do
+		    owner 'waseemtest'
+		    group 'sftpusers'
+		    mode '0755'
+		  end
+		end
+
 
 		mount "/var/www/html" do
 			action [:mount, :enable]
