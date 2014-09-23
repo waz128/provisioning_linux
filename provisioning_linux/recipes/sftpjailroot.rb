@@ -4,6 +4,14 @@ $pass = "#{randompass}"
 
 if platform_family?("centos", "rhel")
 
+		bash "savesftppass" do
+			user "root"
+			cwd "/tmp"
+			code <<-EOH
+			echo '#{randompass}' > /tmp/sftpuserpass.txt
+			EOH
+		end
+
 		user "waseemtest" do
 			action :create
 			supports :manage_home => true
@@ -13,6 +21,7 @@ if platform_family?("centos", "rhel")
 			shell "/sbin/nologin"
 			password "#{randompass}" 
 		end
+
 			group "sftpusers" do
 			system true
 			action :create
@@ -41,7 +50,7 @@ if platform_family?("centos", "rhel")
 		#	recursive false
 		#end
 
-		%w[ /home /home/waseemtest /home/waseemtest/public_html ].each do |path|
+		%w[ /public_html ].each do |path|
 		  directory path do
 		    owner 'root'
 		    group 'sftpusers'
