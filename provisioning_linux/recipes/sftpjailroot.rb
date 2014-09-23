@@ -26,14 +26,12 @@ if platform_family?("centos", "rhel")
 
 		node['sshd']['config_file'] = '/etc/ssh/sshd_config'
 
-		node['sshd']['config_file'] do
-
-			Match 'Group sftpusers' => {
-			   'ChrootDirectory'=> '%h'
-			   'ForceCommand' => 'internal-sftp',
-			   'AllowTcpForwarding' => 'no',
-			   'X11Forwarding' => 'no'
-			 }
+		node['sshd']['config_file']['Match'] = 
+			   ['Group sftpusers'],
+			   ['ChrootDirectory']['%h'],
+			   ['ForceCommand']['internal-sftp'],
+			   ['AllowTcpForwarding'] ['no'],
+			   ['X11Forwarding']['no']
 		end
 
 end	
