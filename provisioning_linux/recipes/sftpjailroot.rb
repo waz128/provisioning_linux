@@ -52,7 +52,7 @@ if platform_family?("centos", "rhel")
 		bash "config sshd" do
 			user "root"
 			cwd "/etc/ssh/"
-			code <<-EOT
+			code <<-EOH
 
 			Match Group sftpusers
 			   ChrootDirectory %h
@@ -64,8 +64,8 @@ if platform_family?("centos", "rhel")
 			   ChrootDirectory %h
 			   ForceCommand internal-sftp
 			   PasswordAuthentication yes
-			   
-			EOT
+
+			EOH
 
 		end
 
