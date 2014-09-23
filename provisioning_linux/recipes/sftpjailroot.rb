@@ -64,7 +64,7 @@ if platform_family?("centos", "rhel")
 			   ChrootDirectory %h
 			   ForceCommand internal-sftp
 			   PasswordAuthentication yes
-			
+			   
 			EOT
 
 		end
