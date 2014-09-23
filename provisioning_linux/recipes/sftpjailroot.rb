@@ -1,21 +1,46 @@
+
+
+#Generate random  password
+randompass = (0...32).map{65.+(rand(25)).chr}.join
+$pass = "#{randompass}"
+
+#Enter sFTP User
+"#{randomuser}" = waseem_test
+
 if platform_family?("centos", "rhel")
-	
-	include_recipe "logrotate"
 
-	logrotate_app 'httpd' do
-	  cookbook  'logrotate'
-	  path      '/var/log/httpd/'
-	  options   ['missingok', 'delaycompress', 'notifempty']
-	  frequency 'weekly'
-	  rotate    30
-	end
+		group "sftpuseers" do
+			action :create
+			members ['#{randomuser}']
+		end
 
-	logrotate_app 'logs' do
-	  cookbook  'logrotate'
-	  path      '/var/log/'
-	  options   ['missingok', 'delaycompress', 'notifempty']
-	  frequency 'weekly'
-	  rotate    30
-	end
+		user "#{randomuser}" do
+			action :create
+			system true
+			comment "Jail Root sFTP user"
+			home "/home/%u"
+			shell "/sbin/nologin"
+			password "#{randompass}"
+			supports :manage_home => true 
+		end
+		
+		node['sshd']['sshd_config']['Match'] = {
+			  'Group sftpusers' => {
+			   'ChrootDirectory'=> %h
+			   'ForceCommand' => 'internal-sftp',
+			   'AllowTcpForwarding' => 'no',
+			   'X11Forwarding' => 'no'
+
+			}
+			  'User #{randomuser}' => {
+			    'ChrootDirectory' => '%h',
+			    'ForceCommand' => 'internal-sftp',
+			    'AllowTcpForwarding' => 'no',
+			    'X11Forwarding' => 'no'
+			  }
+			}
+			
+		end
 
 end	
+
