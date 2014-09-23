@@ -54,6 +54,6 @@ if platform_family?("centos", "rhel")
 			device "/home/waseemtest/public_html"
 			fstype "none"
 			options "bind"
-			end
+		end
 
 end	
