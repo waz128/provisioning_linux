@@ -49,25 +49,14 @@ if platform_family?("centos", "rhel")
 			recursive false
 		end
 
-		bash "config sshd" do
-			user "root"
-			cwd "/etc/ssh/"
-			code <<-EOH
-
-			Match Group sftpusers
-			   ChrootDirectory %h
-			   ForceCommand internal-sftp
-			   AllowTcpForwarding no
-			   X11Forwarding no
-
-			Match User waz
-			   ChrootDirectory %h
-			   ForceCommand internal-sftp
-			   PasswordAuthentication yes
-
-			EOH
-
+		ruby_block "update sshd config" do
+			block do
+				file = Chef::Util::FileEdit.new("/etc/ssh/sshd")
+				file.search_file_replace_line(/Subsystem/sftp//usr/libexec/openssh/sftp-server/, Subsystem/sftp/internal-sftp1)
+    			file.write_file
+			end
 		end
+		
 
 		mount "/var/www/html" do
 			action [:mount, :enable]
