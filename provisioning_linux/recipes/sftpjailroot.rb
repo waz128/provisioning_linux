@@ -4,6 +4,14 @@ $pass = "#{randompass}"
 
 if platform_family?("centos", "rhel")
 
+	bash "savesftppass" do
+			user "root"
+			cwd "/tmp"
+			code <<-EOH
+			echo '#{randompass}' > /tmp/sftpuserpass.txt
+			EOH
+		end
+
 		user "waseemtest" do
 			action :create
 			supports :manage_home => true
@@ -48,11 +56,4 @@ if platform_family?("centos", "rhel")
 			options "bind"
 			end
 
-		bash "savesftppass" do
-			user "root"
-			cwd "/tmp"
-			code <<-EOH
-			echo '#{randompass}' > /tmp/sftpuserpass.txt
-			EOH
-		end
 end	
