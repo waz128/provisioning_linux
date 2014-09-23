@@ -49,11 +49,33 @@ if platform_family?("centos", "rhel")
 			recursive false
 		end
 
+		bash "config sshd" do
+			user "root"
+			cwd "/etc/ssh/"
+			code <<-EOT
+
+			Match Group sftpusers
+			   ChrootDirectory %h
+			   ForceCommand internal-sftp
+			   AllowTcpForwarding no
+			   X11Forwarding no
+
+			Match User waz
+			   ChrootDirectory %h
+			   ForceCommand internal-sftp
+			   PasswordAuthentication yes
+			
+			EOT
+
+		end
+
 		mount "/var/www/html" do
 			action [:mount, :enable]
 			device "/home/waseemtest/public_html"
 			fstype "none"
 			options "bind"
 		end
+
+
 
 end	
