@@ -22,15 +22,4 @@ if platform_family?("centos", "rhel")
 			supports :manage_home => true 
 		end
 
-		node['sshd']['config_file'] = '/etc/ssh/sshd_config'
-
-		node['sshd']['config_file']['Match'] do {
-			   ['Group']= 'sftpusers',
-			   ['ChrootDirectory']= '%h',
-			   ['ForceCommand'] = 'internal-sftp',
-			   ['AllowTcpForwarding'] = 'no',
-			   ['X11Forwarding'] = 'no'
-		}
-		end
-
 end	
