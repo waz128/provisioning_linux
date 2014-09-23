@@ -1,5 +1,3 @@
-
-
 #Generate random  password
 randompass = (0...32).map{65.+(rand(25)).chr}.join
 $pass = "#{randompass}"
@@ -35,4 +33,3 @@ if platform_family?("centos", "rhel")
 		end
 
 end	
-
