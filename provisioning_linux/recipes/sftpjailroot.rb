@@ -30,7 +30,7 @@ if platform_family?("centos", "rhel")
 
 		directory "/home/waseemtest/public_html/" do
 			action :create
-			owner "root"
+			owner "waseemtest"
 			group "sftpusers"
 			mode "0755"
 			recursive false
@@ -40,7 +40,7 @@ if platform_family?("centos", "rhel")
 			owner "waseemtest"
 			group "sftpusers"
 			mode "0755"
-			recursive false
+			recursive true
 		end
 		
 		directory "/home/waseemtest" do
