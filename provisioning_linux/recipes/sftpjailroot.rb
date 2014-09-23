@@ -2,9 +2,6 @@
 randompass = (0...32).map{65.+(rand(25)).chr}.join
 $pass = "#{randompass}"
 
-#Enter sFTP User
-$waseem_test = waseem1
-
 if platform_family?("centos", "rhel")
 
 		group "sftpuseers" do
@@ -12,7 +9,7 @@ if platform_family?("centos", "rhel")
 			members ['#{randomuser}']
 		end
 
-		user "$waseem_test" do
+		user "waseemtest" do
 			action :create
 			system true
 			comment "Jail Root sFTP user"
