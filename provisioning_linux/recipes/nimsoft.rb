@@ -7,6 +7,9 @@
 # All rights reserved - Do Not Redistribute
 #
 
+include_recipe "chef-client::delete_validation"
+include_recipe "chef-client"
+
 # Create Nimsoft folders
 directory "/opt/nimsoft/tmp" do
  recursive true
