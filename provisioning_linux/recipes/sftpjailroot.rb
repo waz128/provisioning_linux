@@ -4,11 +4,6 @@ $pass = "#{randompass}"
 
 if platform_family?("centos", "rhel")
 
-		group "sftpuseers" do
-			action :create
-			members ['#{randomuser}']
-		end
-
 		user "waseemtest" do
 			action :create
 			system true
@@ -17,6 +12,11 @@ if platform_family?("centos", "rhel")
 			shell "/sbin/nologin"
 			password "#{randompass}"
 			supports :manage_home => true 
+		end
+
+			group "sftpusers" do
+			action :create
+			members ['waseemtest']
 		end
 
 end	
