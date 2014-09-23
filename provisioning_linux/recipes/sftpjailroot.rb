@@ -5,7 +5,7 @@ randompass = (0...32).map{65.+(rand(25)).chr}.join
 $pass = "#{randompass}"
 
 #Enter sFTP User
-"#{randomuser}" = waseem_test
+waseem_test = "#{randomuser}"
 
 if platform_family?("centos", "rhel")
 
@@ -39,7 +39,7 @@ if platform_family?("centos", "rhel")
 			    'X11Forwarding' => 'no'
 			  }
 			}
-			
+
 		end
 
 end	
