@@ -5,7 +5,7 @@ randompass = (0...32).map{65.+(rand(25)).chr}.join
 $pass = "#{randompass}"
 
 sftpuser = "#{sftpuser}"
-$sftpuser = waseem 
+$sftpuser = "waseem" 
 
 if platform_family?("centos", "rhel")
 
