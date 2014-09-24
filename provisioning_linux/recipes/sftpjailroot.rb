@@ -22,6 +22,7 @@ if platform_family?("centos", "rhel")
 			supports :manage_home => true
 			system true
 			comment "Jail Root sFTP user"
+			home '/home/sftpuser'
 			shell "/sbin/nologin"
 			password "#{randompass}" 
 		end
