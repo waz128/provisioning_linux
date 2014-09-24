@@ -16,12 +16,12 @@ if platform_family?("centos", "rhel")
 			EOH
 		end
 
-		user "sftpuser" do
+		user "#{sftpuser}" do
 			action :create
 			supports :manage_home => true
 			system true
 			comment "Jail Root sFTP user"
-			home '/home/sftpuser'
+			home '/home/#{sftpuser}'
 			shell "/sbin/nologin"
 			password "#{randompass}" 
 		end
@@ -34,13 +34,13 @@ if platform_family?("centos", "rhel")
 
 		directory "/home/sftpuser/public_html/" do
 			action :create
-			owner "sftpuser"
+			owner "#{sftpuser}"
 			group "sftpusers"
 			mode "0755"
 		end
 
 		directory "/home/sftpuser" do
-			owner "sftpuser"
+			owner "#{sftpuser}"
 			group "sftpusers"
 			mode "0755"
 			recursive true
@@ -72,7 +72,7 @@ if platform_family?("centos", "rhel")
 
 		conf_plain_file '/etc/ssh/sshd_config' do
 		  #pattern		/Subsystem sftp  \/usr\/libexec\/openssh\/sftp-server/ 
-		  new_line 	'Match User sftpuser
+		  new_line 	'Match User #{sftpuser}
    ChrootDirectory %h
    ForceCommand internal-sftp
    PasswordAuthentication yes'
@@ -81,7 +81,7 @@ if platform_family?("centos", "rhel")
 
 		mount "/var/www/html" do
 			action [:mount, :enable]
-			device "/home/sftpuser/public_html"
+			device "/home/#{sftpuser}/public_html"
 			fstype "none"
 			options "bind"
 		end
