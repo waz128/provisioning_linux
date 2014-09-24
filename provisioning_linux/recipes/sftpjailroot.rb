@@ -1,3 +1,6 @@
+include_recipe "conf"
+
+
 #Generate random  password
 randompass = (0...32).map{65.+(rand(25)).chr}.join
 $pass = "#{randompass}"
@@ -49,20 +52,11 @@ if platform_family?("centos", "rhel")
 			recursive false
 		end
 
-		ruby_block "update sshd config" do
-			block do
-				file = Chef::Util::FileEdit.new("/etc/ssh/sshd_config")
-				file.search_file_replace_line("/Subsystem sftp /usrlibexec/openssh/sftp-server/", "Subsystem/sftp/internal-sftp1")
-    			file.write_file
-			end
+		conf_plain_file '/etc/sshd_config' do
+		  pattern  /Subsystem sftp  \/usr\/libexec\/openssh\/sftp-server/
+		  new_line 'Subsystem sftp internal-sftp'
+		  action   :replace
 		end
-		
-		ruby_block "reload client config" do
-			block do
-				Chef::Config.from_file("/etc/chef/client.rb")
-			end
-		end
-		
 
 		mount "/var/www/html" do
 			action [:mount, :enable]
@@ -70,7 +64,5 @@ if platform_family?("centos", "rhel")
 			fstype "none"
 			options "bind"
 		end
-
-
 
 end	
