@@ -52,8 +52,14 @@ if platform_family?("centos", "rhel")
 		ruby_block "update sshd config" do
 			block do
 				file = Chef::Util::FileEdit.new("/etc/ssh/sshd")
-				file.search_file_replace_line(/Subsystem/sftp//usr/libexec/openssh/sftp-server/, Subsystem/sftp/internal-sftp1)
+				file.search_file_replace_line("Subsystem \s sftp \s /usrlibexec/openssh/sftp-server/", "Subsystem/sftp/internal-sftp1")
     			file.write_file
+			end
+		end
+		
+		ruby_block "reload client config" do
+			block do
+				Chef::Config.from_file("/etc/chef/client.rb")
 			end
 		end
 		
