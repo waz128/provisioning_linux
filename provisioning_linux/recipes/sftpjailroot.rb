@@ -52,7 +52,7 @@ if platform_family?("centos", "rhel")
 		ruby_block "update sshd config" do
 			block do
 				file = Chef::Util::FileEdit.new("/etc/ssh/sshd_config")
-				file.search_file_replace_line("Subsystem \s sftp \s /usrlibexec/openssh/sftp-server/", "Subsystem/sftp/internal-sftp1")
+				file.search_file_replace_line("/Subsystem sftp /usrlibexec/openssh/sftp-server/", "Subsystem/sftp/internal-sftp1")
     			file.write_file
 			end
 		end
