@@ -4,8 +4,8 @@ include_recipe "conf"
 randompass = (0...32).map{65.+(rand(25)).chr}.join
 $pass = "#{randompass}"
 
-sftpuser = waseem
-$user = "#{sftpuser}" 
+sftpuser = "#{sftpuser}"
+$sftpuser = waseem 
 
 if platform_family?("centos", "rhel")
 
