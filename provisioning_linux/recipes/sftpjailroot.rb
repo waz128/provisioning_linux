@@ -22,7 +22,6 @@ if platform_family?("centos", "rhel")
 			supports :manage_home => true
 			system true
 			comment "Jail Root sFTP user"
-			home '/home/#{sftpuser}'
 			shell "/sbin/nologin"
 			password "#{randompass}" 
 		end
@@ -30,7 +29,7 @@ if platform_family?("centos", "rhel")
 			group "sftpusers" do
 			system true
 			action :create
-			members ['#{sftpuser}','apache']
+			members ['sftpuser','apache']
 		end
 
 		directory "/home/#{sftpuser}/public_html/" do
