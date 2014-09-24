@@ -1,9 +1,11 @@
 include_recipe "conf"
 
-
 #Generate random  password
 randompass = (0...32).map{65.+(rand(25)).chr}.join
 $pass = "#{randompass}"
+
+sftpuser = waseem
+$user = "#{sftpuser}" 
 
 if platform_family?("centos", "rhel")
 
@@ -15,12 +17,12 @@ if platform_family?("centos", "rhel")
 			EOH
 		end
 
-		user "waseemtest" do
+		user "#{sftpuser}" do
 			action :create
 			supports :manage_home => true
 			system true
 			comment "Jail Root sFTP user"
-			home '/home/waseemtest'
+			home '/home/#{sftpuser}'
 			shell "/sbin/nologin"
 			password "#{randompass}" 
 		end
@@ -28,30 +30,29 @@ if platform_family?("centos", "rhel")
 			group "sftpusers" do
 			system true
 			action :create
-			members ['waseemtest','apache']
+			members ['#{sftpuser}','apache']
 		end
 
-		directory "/home/waseemtest/public_html/" do
+		directory "/home/#{sftpuser}/public_html/" do
 			action :create
-			owner "waseemtest"
+			owner "#{sftpuser}"
 			group "sftpusers"
 			mode "0755"
 		end
 
-		directory "/home/waseemtest" do
-			owner "waseemtest"
+		directory "/home/#{sftpuser}" do
+			owner "#{sftpuser}"
 			group "sftpusers"
 			mode "0755"
 			recursive true
 		end
 		
-		directory "/home/waseemtest" do
+		directory "/home/#{sftpuser}" do
 			owner "root"
 			group "sftpusers"
 			mode "0775"
 			recursive false
 		end
-
 
 		conf_plain_file '/etc/ssh/sshd_config' do
 		  current_line 'Subsystem sftp /usr/libexec/openssh/sftp-server'
@@ -72,18 +73,16 @@ if platform_family?("centos", "rhel")
 
 		conf_plain_file '/etc/ssh/sshd_config' do
 		  #pattern		/Subsystem sftp  \/usr\/libexec\/openssh\/sftp-server/ 
-		  new_line 	'Match User waz
+		  new_line 	'Match User #{sftpuser}
    ChrootDirectory %h
    ForceCommand internal-sftp
    PasswordAuthentication yes'
 		  action :append
 		end
 
-
-
 		mount "/var/www/html" do
 			action [:mount, :enable]
-			device "/home/waseemtest/public_html"
+			device "/home/#{sftpuser}/public_html"
 			fstype "none"
 			options "bind"
 		end
