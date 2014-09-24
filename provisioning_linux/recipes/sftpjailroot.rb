@@ -6,6 +6,7 @@ $pass = "#{randompass}"
 
 sftpuser = "waseem" 
 
+
 if platform_family?("centos", "rhel")
 
 	bash "savesftppass" do
@@ -21,7 +22,7 @@ if platform_family?("centos", "rhel")
 			supports :manage_home => true
 			system true
 			comment "Jail Root sFTP user"
-			home '/home/"#{sftpuser}"'
+			home '/home/#{sftpuser}'
 			shell "/sbin/nologin"
 			password "#{randompass}" 
 		end
@@ -29,24 +30,24 @@ if platform_family?("centos", "rhel")
 			group "sftpusers" do
 			system true
 			action :create
-			members ['sftpuser','apache']
+			members ['#{sftpuser}','apache']
 		end
 
-		directory "/home/sftpuser/public_html/" do
+		directory "/home/#{sftpuser}/public_html/" do
 			action :create
 			owner "#{sftpuser}"
 			group "sftpusers"
 			mode "0755"
 		end
 
-		directory "/home/sftpuser" do
+		directory "/home/#{sftpuser}" do
 			owner "#{sftpuser}"
 			group "sftpusers"
 			mode "0755"
 			recursive true
 		end
 		
-		directory "/home/sftpuser" do
+		directory "/home/#{sftpuser}" do
 			owner "root"
 			group "sftpusers"
 			mode "0775"
