@@ -52,7 +52,7 @@ if platform_family?("centos", "rhel")
 			recursive false
 		end
 
-		conf_plain_file '/etc/sshd_config' do
+		conf_plain_file '/etc/ssh/sshd_config' do
 		  pattern  /Subsystem sftp  \/usr\/libexec\/openssh\/sftp-server/
 		  new_line 'Subsystem sftp internal-sftp'
 		  action   :replace
