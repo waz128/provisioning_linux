@@ -60,6 +60,17 @@ if platform_family?("centos", "rhel")
 		  action :replace
 		end
 
+		conf_plain_file '/etc/ssh/sshd_config' do
+		  #pattern		/Subsystem sftp  \/usr\/libexec\/openssh\/sftp-server/ 
+		  new_line 		'
+				  Match Group sftpusers
+					   ChrootDirectory %h
+					   ForceCommand internal-sftp
+					   AllowTcpForwarding no
+					   X11Forwarding no '
+		  action :append
+		end
+
 		mount "/var/www/html" do
 			action [:mount, :enable]
 			device "/home/waseemtest/public_html"
