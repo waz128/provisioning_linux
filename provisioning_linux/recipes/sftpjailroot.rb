@@ -34,13 +34,13 @@ if platform_family?("centos", "rhel")
 
 		directory "/home/#{sftpuser}/public_html/" do
 			action :create
-			owner "#{sftpuser}"
+			owner "sftpuser"
 			group "sftpusers"
 			mode "0755"
 		end
 
 		directory "/home/#{sftpuser}" do
-			owner "#{sftpuser}"
+			owner "sftpuser"
 			group "sftpusers"
 			mode "0755"
 			recursive true
