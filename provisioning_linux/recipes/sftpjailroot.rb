@@ -15,7 +15,7 @@ if platform_family?("centos", "rhel")
 			comment "Jail Root sFTP user"
 			home "/home/#{sftpuser}"
 			shell "/sbin/nologin"
-			password "'#{randompass}'" 
+			password '#{randompass}' 
 		end
 
 
