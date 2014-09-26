@@ -15,7 +15,7 @@ if platform_family?("centos", "rhel")
 			comment "Jail Root sFTP user"
 			home "/home/#{sftpuser}"
 			shell "/sbin/nologin"
-			password "#{randompass}" 
+			password "'#{randompass}'" 
 		end
 
 
@@ -38,7 +38,7 @@ if platform_family?("centos", "rhel")
 			owner "'#{sftpuser}'"
 			group "sftpusers"
 			mode "0755"
-			recursive false
+			recursive true
 		end
 
 		directory "update root path" do
