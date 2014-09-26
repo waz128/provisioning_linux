@@ -48,8 +48,8 @@ if platform_family?("centos", "rhel")
 		end
 
 		conf_plain_file '/etc/ssh/sshd_config' do
-		  #current_line 'Subsystem sftp  /usr/libexec/openssh/sftp-server'
-		  pattern		/(Subsystem sftp \/usr\/libexec\/openssh\/sftp-server)/ 
+		  current_line 'Subsystem sftp /usr/libexec/openssh/sftp-server'
+		  #pattern		/(Subsystem sftp \/usr\/libexec\/openssh\/sftp-server)/ 
 		  new_line 'Subsystem sftp internal-sftp'
 		  action :replace
 		end
