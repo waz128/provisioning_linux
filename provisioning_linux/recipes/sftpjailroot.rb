@@ -8,14 +8,6 @@ sftpuser = "waseem"
 
 if platform_family?("centos", "rhel")
 
-	bash "savesftppass" do
-			user "root"
-			cwd "/tmp"
-			code <<-EOH
-			echo '#{randompass}' > /tmp/sftpuserpass.txt
-			EOH
-		end
-		
 		user "#{sftpuser}" do
 			action :create
 			supports :manage_home => true
@@ -26,35 +18,38 @@ if platform_family?("centos", "rhel")
 			password "#{randompass}" 
 		end
 
-			group "sftpusers" do
+
+		bash "savesftppass" do
+			user "root"
+			cwd "/tmp"
+			code <<-EOH
+			echo '#{randompass}' > /tmp/sftpuserpass.txt
+			EOH
+		end
+				
+		group "sftpusers" do
 			system true
 			action :create
 			members ["'#{sftpuser}'",'apache']
 		end
 
-		directory "/home/#{sftpuser}" do
-			owner "root"
-			group "sftpusers"
-			mode "0770"
-			#recursive false
-		end
-
-		directory "/home/#{sftpuser}/public_html/" do
+		directory "/home/#{sftpuser}/public_html" do
 			action :create
 			owner "'#{sftpuser}'"
 			group "sftpusers"
 			mode "0755"
 			recursive false
 		end
-		
-		bash "chown" do
-			user "root"
-			cwd "/tmp"
-			code <<-EOH
-			chown root.sftusers /home/#{sftpuser}
-			chmod 770 /home/#{sftpuser}
-			EOH
+
+		directory "update root path" do
+			owner "root"
+			group "sftpusers"
+			mode "0770"
+			path "/home/#{sftpuser}"
+			recursive false
 		end
+
+		
 		conf_plain_file '/etc/ssh/sshd_config' do
 		  current_line '/usr/libexec/openssh/sftp-server'
 		  #pattern		/(Subsystem sftp \/usr\/libexec\/openssh\/sftp-server)/ 
