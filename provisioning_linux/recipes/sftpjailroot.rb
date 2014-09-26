@@ -4,8 +4,7 @@ include_recipe "conf"
 randompass = (0...32).map{65.+(rand(25)).chr}.join
 $pass = "#{randompass}"
 
-sftpuser = "waseem" 
-$sftpuser = "waseem"
+sftpuser = "waseem"
 
 if platform_family?("centos", "rhel")
 
@@ -16,7 +15,7 @@ if platform_family?("centos", "rhel")
 			echo '#{randompass}' > /tmp/sftpuserpass.txt
 			EOH
 		end
-
+		
 		user "#{sftpuser}" do
 			action :create
 			supports :manage_home => true
@@ -41,7 +40,7 @@ if platform_family?("centos", "rhel")
 		end
 
 		directory "/home/#{sftpuser}" do
-			owner "'#{sftpuser}'"
+			owner "#{sftpuser}"
 			group "sftpusers"
 			mode "0755"
 			recursive true
