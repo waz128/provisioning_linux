@@ -36,7 +36,7 @@ if platform_family?("centos", "rhel")
 			action :create
 			owner "'#{sftpuser}'"
 			group "sftpusers"
-			mode "0755"
+			#mode "0755"
 		end
 
 		directory "/home/#{sftpuser}" do
@@ -49,20 +49,21 @@ if platform_family?("centos", "rhel")
 		directory "/home/#{sftpuser}" do
 			owner "root"
 			group "sftpusers"
-			mode "0775"
+			mode "0770"
 			recursive false
 		end
 
 		conf_plain_file '/etc/ssh/sshd_config' do
-		  current_line 'Subsystem sftp  /usr/libexec/openssh/sftp-server'
+		  current_line 'sftp  /usr/libexec/openssh/sftp-server'
 		  #pattern		/(Subsystem sftp \/usr\/libexec\/openssh\/sftp-server)/ 
-		  new_line 'Subsystem sftp internal-sftp'
+		  new_line 'sftp internal-sftp'
 		  action :replace
 		end
 
 		conf_plain_file '/etc/ssh/sshd_config' do
 		  #pattern		/Subsystem sftp  \/usr\/libexec\/openssh\/sftp-server/ 
-		  new_line 	'Match Group sftpusers
+		  new_line 	
+'Match Group sftpusers
 	ChrootDirectory %h
 	ForceCommand internal-sftp
 	AllowTcpForwarding no
@@ -72,7 +73,7 @@ if platform_family?("centos", "rhel")
 
 		conf_plain_file '/etc/ssh/sshd_config' do
 		  #pattern		/Subsystem sftp  \/usr\/libexec\/openssh\/sftp-server/ 
-		  new_line 	'Match User #{sftpuser}
+		  new_line 	'Match User "#{sftpuser}"
    ChrootDirectory %h
    ForceCommand internal-sftp
    PasswordAuthentication yes'
