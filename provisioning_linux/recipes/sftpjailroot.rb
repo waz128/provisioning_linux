@@ -36,21 +36,21 @@ if platform_family?("centos", "rhel")
 			action :create
 			owner "'#{sftpuser}'"
 			group "sftpusers"
-			#mode "0755"
+			mode "0755"
 		end
 
 		directory "/home/#{sftpuser}" do
 			owner "#{sftpuser}"
 			group "sftpusers"
 			mode "0755"
-			recursive true
+			#recursive true
 		end
 		
 		directory "/home/#{sftpuser}" do
 			owner "root"
 			group "sftpusers"
 			mode "0770"
-			recursive false
+			#recursive false
 		end
 
 		conf_plain_file '/etc/ssh/sshd_config' do
