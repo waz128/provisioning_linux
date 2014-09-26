@@ -70,8 +70,8 @@ if platform_family?("centos", "rhel")
 	AllowTcpForwarding no
 	X11Forwarding no 
 
-Match User' "#{sftpuser}"
-    'ChrootDirectory %h
+Match User "#{sftpuser}"
+    ChrootDirectory %h
    ForceCommand internal-sftp
    PasswordAuthentication yes'
 		  action :append
