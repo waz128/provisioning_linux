@@ -5,7 +5,7 @@ randompass = (0...32).map{65.+(rand(25)).chr}.join
 $pass = "#{randompass}"
 
 sftpuser = "waseem" 
-
+$sftpuser = "waseem"
 
 if platform_family?("centos", "rhel")
 
@@ -30,7 +30,7 @@ if platform_family?("centos", "rhel")
 			group "sftpusers" do
 			system true
 			action :create
-			members ['#{sftpuser}','apache']
+			members ['$sftpuser','apache']
 		end
 
 		directory "/home/#{sftpuser}/public_html/" do
