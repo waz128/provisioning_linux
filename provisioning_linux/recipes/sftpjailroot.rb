@@ -32,14 +32,6 @@ if platform_family?("centos", "rhel")
 			members ["'#{sftpuser}'",'apache']
 		end
 
-		directory "/home/#{sftpuser}/public_html/" do
-			action :create
-			owner "'#{sftpuser}'"
-			group "sftpusers"
-			mode "0755"
-			recursive true
-		end
-		
 		directory "/home/#{sftpuser}" do
 			owner "root"
 			group "sftpusers"
@@ -48,12 +40,21 @@ if platform_family?("centos", "rhel")
 		end
 
 		directory "/home/#{sftpuser}/public_html/" do
+			action :create
 			owner "'#{sftpuser}'"
 			group "sftpusers"
 			mode "0755"
 			recursive false
 		end
 		
+		bash "chown" do
+			user "root"
+			cwd "/tmp"
+			code <<-EOH
+			chown root.sftusers /home/#{sftpuser}
+			chmod 770 /home/#{sftpuser}
+			EOH
+		end
 		conf_plain_file '/etc/ssh/sshd_config' do
 		  current_line '/usr/libexec/openssh/sftp-server'
 		  #pattern		/(Subsystem sftp \/usr\/libexec\/openssh\/sftp-server)/ 
