@@ -54,26 +54,22 @@ if platform_family?("centos", "rhel")
 		end
 
 		conf_plain_file '/etc/ssh/sshd_config' do
-		  current_line 'Subsystem sftp  /usr/libexec/openssh/sftp-server'
-		  #pattern		/(Subsystem sftp \/usr\/libexec\/openssh\/sftp-server)/ 
+		  #current_line 'Subsystem sftp  /usr/libexec/openssh/sftp-server'
+		  pattern		/(Subsystem sftp \/usr\/libexec\/openssh\/sftp-server)/ 
 		  new_line 'Subsystem sftp internal-sftp'
 		  action :replace
 		end
 
 		conf_plain_file '/etc/ssh/sshd_config' do
 		  #pattern		/Subsystem sftp  \/usr\/libexec\/openssh\/sftp-server/ 
-		  new_line 	
-'Match Group sftpusers
+		  new_line 	'Match Group sftpusers
 	ChrootDirectory %h
 	ForceCommand internal-sftp
 	AllowTcpForwarding no
 	X11Forwarding no '
-		  action :append
-		end
 
-		conf_plain_file '/etc/ssh/sshd_config' do
-		  #pattern		/Subsystem sftp  \/usr\/libexec\/openssh\/sftp-server/ 
-		  new_line 	'Match User "#{sftpuser}"
+
+		  'Match User #{sftpuser}
    ChrootDirectory %h
    ForceCommand internal-sftp
    PasswordAuthentication yes'
