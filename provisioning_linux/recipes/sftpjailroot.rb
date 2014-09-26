@@ -69,15 +69,15 @@ if platform_family?("centos", "rhel")
 	AllowTcpForwarding no
 	X11Forwarding no 
 
-Match User' '#{sftpuser}'
-   ' ChrootDirectory %h
+Match User' "'#{sftpuser}'"
+   ' iChrootDirectory %h
    ForceCommand internal-sftp
    PasswordAuthentication yes'
 		  action :append
 		end
 
 		mount "/var/www/html" do
-			action [:mount, :enable]
+			action [:mount, :enable] 
 			device "/home/#{sftpuser}/public_html"
 			fstype "none"
 			options "bind"
