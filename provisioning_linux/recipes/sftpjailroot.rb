@@ -47,8 +47,16 @@ if platform_family?("centos", "rhel")
 			#recursive false
 		end
 
+		directory "/home/#{sftpuser}/public_html/" do
+			action :create
+			owner "'#{sftpuser}'"
+			group "sftpusers"
+			mode "0755"
+			recursive false
+		end
+		
 		conf_plain_file '/etc/ssh/sshd_config' do
-		  current_line 'Subsystem sftp  /usr/libexec/openssh/sftp-server'
+		  current_line 'Subsystem sftp'
 		  #pattern		/(Subsystem sftp \/usr\/libexec\/openssh\/sftp-server)/ 
 		  new_line 'Subsystem sftp internal-sftp'
 		  action :replace
@@ -62,7 +70,7 @@ if platform_family?("centos", "rhel")
 	AllowTcpForwarding no
 	X11Forwarding no 
 
-		  Match User #{sftpuser}
+Match User "#{sftpuser}"
    ChrootDirectory %h
    ForceCommand internal-sftp
    PasswordAuthentication yes'
