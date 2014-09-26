@@ -37,6 +37,7 @@ if platform_family?("centos", "rhel")
 			owner "'#{sftpuser}'"
 			group "sftpusers"
 			mode "0755"
+			recursive true
 		end
 		
 		directory "/home/#{sftpuser}" do
