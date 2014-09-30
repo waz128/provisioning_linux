@@ -15,7 +15,7 @@ if platform_family?("centos", "rhel")
 			comment "Jail Root sFTP user"
 			home "/home/#{sftpuser}"
 			shell "/sbin/nologin"
-			password '#{randompass}' 
+			password '"#{randompass}"' 
 		end
 
 
@@ -66,7 +66,7 @@ if platform_family?("centos", "rhel")
 	X11Forwarding no 
 
 Match User '"#{sftpuser}"'
-    ChrootDirectory %h
+   ChrootDirectory %h
    ForceCommand internal-sftp
    PasswordAuthentication yes'
 		  action :append
