@@ -12,12 +12,11 @@ if platform_family?("centos", "rhel")
 			action :create
 			supports :manage_home => true
 			system true
+			password "'#{randompass}'"
 			comment "Jail Root sFTP user"
 			home "/home/#{sftpuser}"
 			shell "/sbin/nologin"
-			password '"#{randompass}"'
 		end
-
 
 		bash "savesftppass" do
 			user "root"
